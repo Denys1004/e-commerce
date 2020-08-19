@@ -1,0 +1,62 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="d-flex justify-content-between font-weight-bold mb-3">
+      <div>Total Items : 3</div>
+      <div>Total Price $59.97</div>
+      <a href="{% url 'checkout'%}" class="btn btn-dark btn-sm">
+        <span>&#8678;</span> Back to Checkout</a>
+      </div>
+      <h5 class="font-weight-bold mb-3">BILLING ADDRESS</h5>
+      <form action="" method="POST" class="form-group">
+        {% csrf_token %}
+        <label for="address">Address</label>
+        <input type="text" name="address" id="address" class="form-control form-control-sm">
+        <label for="city">City</label>
+        <input type="text" name="city" id="city" class="form-control form-control-sm">
+        <label for="state">State</label>
+        <input type="text" name="state" id="state" class="form-control form-control-sm">
+        <label for="zip">Zip Code</label>
+        <input id="zip" name="zip" type="text" pattern="[0-9]*" class="form-control form-control-sm">
+        <input type="checkbox" name="billing" id="billing">
+        <label for="billing" class="text-primary mt-1">Billing address same as shipping</label>
+        <!-- payment informations -->
+        <h5 class="font-weight-bold mt-3">Payment Method</h5>
+        <label for="card_name">Name on card</label>
+        <input type="text" name="name_on_card" id="card_name" class="form-control form-control-sm">
+        <label for="card_number">Card Number</label>
+        <input type="text" name="card_number" id="card_number" class="form-control form-control-sm mb-3">
+        <h6>Expiration Date</h6>
+        <select name="exp_month" id="">
+          <option value="">01</option>
+          <option value="">02</option>
+          <option value="">03</option>
+          <option value="">04</option>
+          <option value="">05</option>
+          <option value="">06</option>
+          <option value="">07</option>
+          <option value="">08</option>
+          <option value="">09</option>
+          <option value="">10</option>
+          <option value="">11</option>
+          <option value="">12</option>
+        </select>
+        <select name="exp_year" id="" class="ml-2">
+          <option value="">2020</option>
+          <option value="">2021</option>
+          <option value="">2022</option>
+          <option value="">2023</option>
+          <option value="">2024</option>
+        </select>
+        <div class="d-flex justify-content-between mt-3">
+          <input type="submit" value="Pay Now" class="btn btn-dark btn-sm">
+          <a href="" class="btn btn-dark btn-sm">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

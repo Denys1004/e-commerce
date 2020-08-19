@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+            <div class="jumbotron">
+            <a href="{% url 'cart' %}" class="btn btn-dark mt-n5">
+                <span>&#8678;</span> Back to Cart</a>
+            <div class="row mt-3">
+                <div class="col-md-6 border border-dark p-3">
+                    <h5 class="font-weight-bold mb-2">SHIPPING INFORMATION</h5>
+                    <form action="{% url 'pay'%}" method="POST" class="form-group">
+                        {% csrf_token %}
+                        <label for="address">Address</label>
+                        <input type="text" name="address" id="address" class="form-control form-control-sm">
+                        <label for="city">City</label>
+                        <input type="text" name="city" id="city" class="form-control form-control-sm">
+                        <label for="state">State</label>
+                        <input type="text" name="state" id="state" class="form-control form-control-sm">
+                        <label for="zip">Zip Code</label>
+                        <input id="zip" name="zip" type="text" pattern="[0-9]*" class="form-control form-control-sm">
+                        <input type="submit" value="Confirm" class="btn btn-dark mt-3">
+                    </form>
+                    <div>ITEMS: 3</div>
+                    <div>TOTAL: $59.97</div>
+                </div>
+                <div class="col-md-6 border border-dark p-3">
+                    <h5 class="font-weight-bold mb-2">ORDERS SUMMERY</h5>
+                    <table class="table mt-3 table-sm">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Item(s)</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://lp2.hm.com/hmgoepprod?set=quality[79],source[/f5/c4/f5c4939114fcc731acfada4ebb68f1da42cad909.jpg],origin[dam],category[men_tshirtstanks_shortsleeve],type[DESCRIPTIVESTILLLIFE],res[m],hmver[1]&call=url[file:/product/main]" alt="" width="30"></td>
+                                <td>T-shirts</td>
+                                <td>$19.90</td>
+                                <td>1</td>
+                            </tr>
+
+                            <tr>
+                                <td><img src="https://lp2.hm.com/hmgoepprod?set=quality[79],source[/f5/c4/f5c4939114fcc731acfada4ebb68f1da42cad909.jpg],origin[dam],category[men_tshirtstanks_shortsleeve],type[DESCRIPTIVESTILLLIFE],res[m],hmver[1]&call=url[file:/product/main]" alt="" width="30"></td>
+                                <td>T-shirts</td>
+                                <td>$19.90</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>ITEMS: 3</div>
+                    <div>TOTAL: $59.97</div>
+                </div>
+            </div>
+    </div>
+{% endblock content %}
