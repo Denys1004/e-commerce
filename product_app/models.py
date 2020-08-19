@@ -20,7 +20,6 @@ class Product(models.Model):
     description= models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)  							
     updated_at = models.DateTimeField(auto_now = True)
-    #image
 
     def __str__(self):
         return self.name
@@ -41,6 +40,9 @@ class Review(models.Model):
 class Order(models.Model):
     customer = models.ForeignKey(Customer, related_name='orders', on_delete=models.CASCADE, null = True)
     total_cost=models.FloatField(default=0.00)
+    shipping_cost=models.FloatField(default=0.00)
+    item_cost=models.FloatField(default=0.00)
+    instructions=models.TextField(default='')
     complete = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
@@ -51,10 +53,13 @@ class Order(models.Model):
 class Payment(models.Model):
     customer=models.ForeignKey(Customer, related_name='cards', on_delete=models.CASCADE)
     order=models.OneToOneField(Order, related_name='card')
+    nickname=models.CharField(max_length=20)
     name=models.CharField(max_length=255)
     number=models.IntegerField(max_length=16)
+    billing_address=models.OneToOneField(BillingAddress, on_delete=models.CASCADE)
+    processed_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
     exp=models.DateField()
-
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE, null = True)
@@ -70,6 +75,7 @@ class ShippingAddress(models.Model):
     city = models.CharField(max_length = 200)
     state = models.CharField(max_length = 200)
     zipcode = models.CharField(max_length = 200)
+    instructions= models.CharField(max_length = 200)
     date_added = models.DateTimeField(auto_now_add = True)				
     updated_at = models.DateTimeField(auto_now = True)
 
