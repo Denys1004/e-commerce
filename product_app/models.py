@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class Customer(models.Model):
@@ -27,14 +28,14 @@ class Product(models.Model):
 
 class Category(models.Model):
     name=models.CharField(max_length = 100)
-    products=models.ManytoManyField(Product, related_name='categories')
+    products = models.ManyToManyField(Product, related_name='categories')
     created_at = models.DateTimeField(auto_now_add = True)  							
     updated_at = models.DateTimeField(auto_now = True)
 
 class Review(models.Model):
     rating=models.FloatField(null=True)
     review=models.TextField(null=True)
-    poster=models.ForeignKey(Customer, related_name=reviews, on_delete=models.CASCADE)
+    poster=models.ForeignKey(Customer, related_name='reviews', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add = True)  							
     updated_at = models.DateTimeField(auto_now = True)
 
@@ -50,9 +51,9 @@ class Order(models.Model):
 
 class Payment(models.Model):
     customer=models.ForeignKey(Customer, related_name='cards', on_delete=models.CASCADE)
-    order=models.OneToOneField(Order, related_name='card')
+    order=models.OneToOneField(Order, related_name='card', on_delete=models.CASCADE)
     name=models.CharField(max_length=255)
-    number=models.IntegerField(max_length=16)
+    number=models.IntegerField()
     exp=models.DateField()
 
 
