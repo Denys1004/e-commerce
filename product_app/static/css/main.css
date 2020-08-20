@@ -50,6 +50,9 @@ nav .header .left {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -60,6 +63,9 @@ nav .header .left .burger {
 }
 
 nav .header .logo_container {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
   max-width: 200px;
 }
 
@@ -72,9 +78,12 @@ nav .header .right {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -373,7 +382,8 @@ body {
 
 .product_page_container {
   min-height: 88vh;
-  background: radial-gradient(#df4948, #930303);
+  background-color: #d2d2d2;
+  background: radial-gradient(#ffffff, #ffffff, #ababab);
   max-width: 1100px;
   margin: 0 auto;
 }
