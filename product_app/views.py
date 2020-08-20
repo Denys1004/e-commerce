@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from .models import *
 # Create your views here.
 # def index(request):
 #     return render(request, 'main.html')
@@ -16,6 +16,10 @@ def checkout(request):
     context = {}
     return render(request, 'checkout.html', context)
 
-def pay(request):
+def item(request):
     context = {}
-    return render(request, 'pay.html', context)
+    return render(request, 'item.html', context)
+
+def create_new_product(request):
+    Product.objects.create_product(request.FILES)
+    return redirect('/store')

@@ -1,10 +1,34 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
+
 from django.contrib.postgres.fields import ArrayField
+from django.db import models
+
+class ProductManager(models.Manager):
+    def create_product(self, filedata):
+        print('************************************************************')																	
+        print(filedata)																	
+        print('************************************************************')																	
+        # new_product = self.create(
+        #     name = postData['name']
+        #     price = postData['price']
+        #     if len(filedata) > 0:													
+        #         # manage name of the file to prevent conflict
+        #         for eachname in filedata:											
+        #             file_name = filedata['product_image'].name   #saving filename .name is like .png								
+        #             new_name = f"{file_name.split('.')[0]}-{uuid.uuid4().hex}.{file_name.split('.')[-1]}" # adding random string to the name		
+        #             filedata['product_image'].name = new_name    # reassigning the existing name to new name	
+        #             new_product.images.add(filedata['product_image'])
+        #             new_product.save()		
+        # )													
+        return 'new_product'													
+
+
 
 # Create your models here.
 class Customer(models.Model):
-    user = models.OneToOneField(User, null = True, on_delete = models.CASCADE)
+    user = models.OneToOneField(User, null = True, blank = True, on_delete = models.CASCADE)
     name = models.CharField(max_length = 200, null = True)
     email = models.CharField(max_length = 200, null = True)
     created_at = models.DateTimeField(auto_now_add = True)  								
@@ -16,76 +40,46 @@ class Customer(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length = 200)
     price = models.FloatField()
-    digital = models.BooleanField(default = False)
-    images = ArrayField(models.ImageField(upload_to='product_images', default=None, null = True))
-    description= models.TextField()
-    created_at = models.DateTimeField(auto_now_add = True)  							
+    images = ArrayField(models.ImageField(upload_to='product_images', default=None, blank=True, null = True))
+
+    digital = models.BooleanField(default = False, null = True, blank = False)
+    created_at = models.DateTimeField(auto_now_add = True)  								
     updated_at = models.DateTimeField(auto_now = True)
-    #image
+    objects = ProductManager()
 
     def __str__(self):
         return self.name
 
-class Category(models.Model):
-    name=models.CharField(max_length = 100)
-    products = models.ManyToManyField(Product, related_name='categories')
-    created_at = models.DateTimeField(auto_now_add = True)  							
-    updated_at = models.DateTimeField(auto_now = True)
-
-class Review(models.Model):
-    rating=models.FloatField(null=True)
-    review=models.TextField(null=True)
-    poster=models.ForeignKey(Customer, related_name='reviews', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add = True)  							
-    updated_at = models.DateTimeField(auto_now = True)
+# class Category
+    # Many to many with Product
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, related_name='orders', on_delete=models.CASCADE, null = True)
-    total_cost=models.FloatField(default=0.00)
-    complete = models.BooleanField(default = False)
-    created_at = models.DateTimeField(auto_now_add = True)
+    customer = models.ForeignKey(Customer, on_delete = models.SET_NULL, null = True, blank = True)
+    complete = models.BooleanField(default = False) # if complete is False that is open cart, and we can add items to it
+    created_at = models.DateTimeField(auto_now_add = True)  								
     updated_at = models.DateTimeField(auto_now = True)
 
     def __str__(self):
         return str(self.id)
 
-class Payment(models.Model):
-    customer=models.ForeignKey(Customer, related_name='cards', on_delete=models.CASCADE)
-    order=models.OneToOneField(Order, related_name='card', on_delete=models.CASCADE)
-    name=models.CharField(max_length=255)
-    number=models.IntegerField()
-    exp=models.DateField()
-
-
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE, null = True)
-    order = models.ForeignKey(Order, related_name='order_items',on_delete=models.CASCADE)
-    quantity = models.IntegerField(default = 1)
-    date_added = models.DateTimeField(auto_now_add = True)
+    product = models.ForeignKey(Product, on_delete = models.SET_NULL, null = True)
+    order = models.ForeignKey(Order, on_delete = models.SET_NULL, null = True)
+    quantity = models.IntegerField(default = 0, null = True, blank = True)
+    date_added = models.DateTimeField(auto_now_add = True)  								
     updated_at = models.DateTimeField(auto_now = True)
+
 
 class ShippingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null = True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null = True)
-    address = models.CharField(max_length = 200)
-    city = models.CharField(max_length = 200)
-    state = models.CharField(max_length = 200)
-    zipcode = models.CharField(max_length = 200)
-    date_added = models.DateTimeField(auto_now_add = True)				
+    customer = models.ForeignKey(Customer, on_delete = models.SET_NULL, null = True)
+    order = models.ForeignKey(Order, on_delete = models.SET_NULL, null = True)
+    address = models.CharField(max_length = 200, null = False)
+    city = models.CharField(max_length = 200, null = False)
+    state = models.CharField(max_length = 200, null = False)
+    zipcode = models.CharField(max_length = 200, null = False)
+    date_added = models.DateTimeField(auto_now_add = True)  								
     updated_at = models.DateTimeField(auto_now = True)
-
     def __str__(self):
         return self.address
 
-class BillingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null = True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null = True)
-    address = models.CharField(max_length = 200)
-    city = models.CharField(max_length = 200)
-    state = models.CharField(max_length = 200)
-    zipcode = models.CharField(max_length = 200)
-    date_added = models.DateTimeField(auto_now_add = True)				
-    updated_at = models.DateTimeField(auto_now = True)
 
-    def __str__(self):
-        return self.address
