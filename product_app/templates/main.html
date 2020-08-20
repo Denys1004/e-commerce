@@ -63,7 +63,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="/">Shopping Cart</a></li>
+                    <li><a href="">Shopping Cart</a></li>
                     {% if user_id in request.session %}
                     <li><a href="/">Sign Out</a></li>
                     {% else %}
@@ -72,13 +72,12 @@
                 </ul>
                 <div class="right">
                     <div class="sign_in">
-                        <a href="/"><ion-icon name="person-outline"></ion-icon>
-                            {% if user_id in request.session %}
-                            <small>Sign out</small>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'user_logout'%}"><ion-icon name="person-outline"></ion-icon>
+                            <small>Sign out</small></a>
                             {% else %}
-                            <small>Sign in</small>
+                            <a href="{% url 'user_login'%}"><small>Sign in</small></a>
                             {% endif %}
-                        </a> 
                     </div>
                     <div class="cart">
                         <a href="/"><ion-icon name="cart-outline"></ion-icon><small>Cart 0</small></a>
