@@ -15,12 +15,14 @@ nav{
         height: 8vh;
         .left{
             display: flex;
+            flex: 1;
             align-items: center;
             .burger{
                 max-width: 30px;
             }
         }
         .logo_container{
+            flex: 2;
             max-width: 200px;
             img{
                 width: 180px;
@@ -28,48 +30,10 @@ nav{
                 // margin: 0 10px 0 20px;
             }
         }
-        // .search_container{
-        //     max-width: 500px;
-        //     min-width: 400px;
-        //     form{
-        //         display: flex;
-        //         justify-content: center;
-        //         align-items: center;
-        //         .search_bar{
-        //             display: block;
-        //             width: 100%;
-        //             outline: none;
-        //             height: calc(1em + .5rem + 6px);
-        //             padding: .35rem .5rem;
-        //             font-size: 0.8rem;
-        //             font-weight: 400;
-        //             line-height: 1.5;
-        //             color: $grey_color;
-        //             background-color: $white_color;
-        //             background-clip: padding-box;
-        //             border: none;
-        //             border-radius: .5rem  0  0 .5rem;
-        //             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        //         }
-        //         .search_button{
-        //             outline: none;
-        //             border: none;
-        //             height: calc(1em + .5rem + 6px);
-        //             padding: .35rem .5rem;
-        //             font-size: 0.8rem;
-        //             color: $grey_color;
-        //             border-radius: 0 .5rem .5rem 0;
-        //             background-color: $white_color;
-        //             ion-icon {
-        //                 font-size: 16px;
-        //             }
-        //         }
-        //     }
-
-        // }
         .right{
             display: flex;
-            justify-content: space-between;
+            flex: 1;
+            justify-content: flex-end;
             align-items: center;
             color: $white_color;
             .sign_in{
