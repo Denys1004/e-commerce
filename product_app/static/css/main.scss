@@ -1,6 +1,7 @@
 // $blue_bg: #191f31;
 $blue_bg: #1d1d1d;
 $red: #930303;
+$red_light: #d81513;
 $blue_bg_opacity: #191f31ea;
 $blue_bg_opacity_dark: #191f3145;
 $blue_bg_opacity_ligth: #191f3112;
@@ -55,4 +56,33 @@ p{
 
 footer{
     background-color: $blue_bg;
+    .footer_container{
+        max-width: 1100px;
+        padding: 30px 20px;
+        margin: auto;
+        display: flex;
+        align-items: top;
+        justify-content: space-between;
+        color: $light_grey;
+        h1{
+            color: $red
+        }
+        p{
+            font-weight: 300;
+        }
+    }
+}
+.social_media{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+.social_media a img{
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+    margin-right: 20px;
+}
+#rashid{
+    margin: 0 40px;
 }
