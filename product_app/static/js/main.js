@@ -51,3 +51,24 @@ const navSlide = () => {
 // });
 
 
+
+// Product hover
+$('.product_container .product').hover(function(){
+  let frontImgAddress = $(this).children('a').children('img').attr('src');
+  let backImgAddress = $(this).children('a').children('img').attr('alternative_src');
+  $(this).children('a').children('img').attr('src', backImgAddress);
+  $(this).children('a').children('img').attr('alternative_src', frontImgAddress);
+})
+
+$('.product_container .product').hover(function(){
+  $(this).children('.product_description').slideDown();
+}, function(){
+  $(this).children('.product_description').slideUp(); 
+})
+
+
+
+// Carousel
+$('.carousel').carousel({
+  interval: 3000
+})

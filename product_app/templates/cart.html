@@ -1,53 +1,5 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-    <!-- cart -->
-    <div class="jumbotron">
-    <a href="{% url 'store'%}" class="btn btn-dark mt-3"><i class="fas fa-shopping-bag"></i> Continue Shopping</a>
-    <div class="d-flex justify-content-around mt-5">
-        <div>Total Items : 3</div>
-        <div>Total Price $59.97</div>
-        <div><a href="{% url 'checkout'%}" class="btn btn-sm btn-dark"><i class="fas fa-shopping-cart"></i> checkout</a></div>
-    </div>
-    <table class="table mt-3 table-light table-sm">
-        <thead>
-            <tr>
-                <th>image</th>
-                <th>Items</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><img src="https://lp2.hm.com/hmgoepprod?set=quality[79],source[/f5/c4/f5c4939114fcc731acfada4ebb68f1da42cad909.jpg],origin[dam],category[men_tshirtstanks_shortsleeve],type[DESCRIPTIVESTILLLIFE],res[m],hmver[1]&call=url[file:/product/main]" alt="" width="30"></td>
-                <td>T-shirts</td>
-                <td>$19.90</td>
-                <td>
-                    <select name="" id=""cd >
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
-                    </select>
-                </td>
-                <td>$19.90</td>
-            </tr>
-
-            <td></td>
-            <td>T-shirts</td>
-            <td>$19.90</td>
-            <td>
-                <select name="" id=""cd >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                </select>
-            </td>
-            <td>$19.90</td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
-
+    <h1>Cart HTML</h1>
 {% endblock content %}
