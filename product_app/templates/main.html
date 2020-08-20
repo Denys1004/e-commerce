@@ -64,23 +64,23 @@
                     </li>
 
                     <li><a href="">Shopping Cart</a></li>
-                    {% if user_id in request.session %}
-                    <li><a href="/">Sign Out</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_logout'%}"><i class="fas fa-user-times"></i> Sign Out</a></li>
                     {% else %}
-                    <li><a href="/">Sign in</a></li>
+                    <li><a href="{% url 'user_login' %}"><ion-icon name="person-outline"> </ion-icon> Sign in</a></li>
                     {% endif %}
                 </ul>
                 <div class="right">
                     <div class="sign_in">
                         {% if user.is_authenticated %}
-                        <a href="{% url 'user_logout'%}"><ion-icon name="person-outline"></ion-icon>
-                            <small>Sign out</small></a>
+                        <a href="{% url 'user_logout'%}">
+                            <small><i class="fas fa-user-times"></i> Sign out</small></a>
                             {% else %}
-                            <a href="{% url 'user_login'%}"><small>Sign in</small></a>
+                            <a href="{% url 'user_login'%}"><ion-icon name="person-outline"> </ion-icon><small>Sign in</small></a>
                             {% endif %}
                     </div>
                     <div class="cart">
-                        <a href="/"><ion-icon name="cart-outline"></ion-icon><small>Cart 0</small></a>
+                        <a href="{% url 'cart'%}"><ion-icon name="cart-outline"></ion-icon><small>Cart 0</small></a>
                     </div>
                 </div>
             </div>
