@@ -13,34 +13,19 @@
                 <div class="item_photo_container">
 
                     <div class="main_photo lightbox">
-                        <a class="lightbox" href="{% static 'images/15_front.png' %}">
-                            <img src="{% static 'images/15_front.png' %}" alt="image">
+                        <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}">
+                            <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
                         </a>
                     </div>
 
                     <div class="all_additional_photos">
-
-                        <div class="additional_photo">
-                            <a class="lightbox" href="{% static 'images/1_front.png' %}">
-                                <img src="{% static 'images/1_front.png' %}" alt="image">
-                            </a>
-                        </div>
-                        <div class="additional_photo">
-                            <a class="lightbox" href="{% static 'images/2_front.png' %}">
-                                <img src="{% static 'images/2_front.png' %}" alt="image">
-                            </a>
-                        </div>
-                        <div class="additional_photo">
-                            <a class="lightbox" href="{% static 'images/5_front.png' %}">
-                                <img src="{% static 'images/5_front.png' %}" alt="image">
-                            </a>
-                        </div>
-                        <div class="additional_photo">
-                            <a class="lightbox" href="{% static 'images/4_front.png' %}">
-                                <img src="{% static 'images/4_front.png' %}" alt="image">
-                            </a>
-                        </div>
-
+                        {% for picture in additional_images %}
+                            <div class="additional_photo">
+                                <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ picture.name }}">
+                                    <img src="{{ MEDIA_URL }}/product_pictures/{{ picture.name }}" alt="image">
+                                </a>
+                            </div>
+                        {% endfor %}
                     </div>
 
                 </div>
@@ -48,7 +33,7 @@
 
 
             <div class="item_description_container">
-                <h1>Item 1</h1>
+                <h1>{{product.name}}</h1>
                 <div class="rating_container">
                     <ion-icon name="star"></ion-icon>
                     <ion-icon name="star"></ion-icon>
@@ -56,9 +41,7 @@
                     <ion-icon name="star"></ion-icon>
                     <ion-icon name="star"></ion-icon>
                 </div>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto sunt quos perferendis repellat, hic, unde provident dolorum rem atque possimus veritatis delectus? Quis itaque perferendis quaerat in, dolorum excepturi odio?</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto sunt quos perferendis repellat, hic, unde provident dolorum rem atque possimus veritatis delectus? Quis itaque perferendis quaerat in, dolorum excepturi odio?</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto sunt quos perferendis repellat, hic, unde provident dolorum rem atque possimus veritatis delectus? Quis itaque perferendis quaerat in, dolorum excepturi odio?</p>
+                {{product.description|safe}}
                 <br>
                 <br>
                 <p>Leave Rating:</p>

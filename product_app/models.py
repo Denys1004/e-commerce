@@ -4,8 +4,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.files.storage import FileSystemStorage
 import uuid
 
-# Create your models here.
-
 
 class ProductManager(models.Manager):
     def create_product(self, postData, fileData):

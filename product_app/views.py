@@ -6,7 +6,9 @@ from product_app.models import *
 #     return render(request, 'main.html')
 
 def store(request):
-    context = {}
+    context = {
+        'products':Product.objects.all()
+    }
     return render(request, 'store.html', context)
 
 def cart(request):
@@ -17,8 +19,13 @@ def checkout(request):
     context = {}
     return render(request, 'checkout.html', context)
 
-def item(request):
-    context = {}
+def item(request, id):
+    product=Product.objects.get(id=id)
+    last=product.images.last()
+    context = {
+        'product':product,
+        'additional_images':product.images.all().exclude(id=last.id)
+    }
     return render(request, 'item.html', context)
 
 

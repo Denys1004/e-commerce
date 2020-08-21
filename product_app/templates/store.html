@@ -15,137 +15,23 @@
             </div>
 
         </div>
-
-
-
+        
         <div class="product_container">
-
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
+            {% for product in products %}
+                <div class="product">
+                    <div class="product_description">
+                        <div class="product_header">
+                            <p>{{product.name}}</p>
+                            <p>{{product.price}}</p>
+                        </div>
+                        <div class="product_buttons">
+                            <a class="btn_white" href="/add_to_cart/{{product.id}}">Add to cart</a>
+                            <a class="btn_white" href="/item/{{product.id}}">View</a>
+                        </div>
                     </div>
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="/item">View</a>
-                    </div>
+                    <a href='/item/{{product.id}}'><img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alternative_src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.0.name }}" alt="image"></a>
                 </div>
-                <a href=""><img src="{% static 'images/15_front.png' %}" alternative_src="{% static 'images/15_back.png' %}" alt="image"></a>
-            </div>
-
-
-
-            
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
-                    </div>
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="">View</a>
-                    </div>
-                </div>
-                <a href=""><img src="{% static 'images/16_front.png' %}" alternative_src="{% static 'images/16_back.png' %}" alt="image"></a>
-            </div>
-
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
-                    </div>
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="">View</a>
-                    </div>
-                </div>
-                <a href=""><img src="{% static 'images/17_front.png' %}" alternative_src="{% static 'images/17_back.png' %}" alt="image"></a>
-            </div>
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
-                    </div>
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="">View</a>
-                    </div>
-                </div>
-                <a href=""><img src="{% static 'images/19_front.png' %}" alternative_src="{% static 'images/19_back.png' %}" alt="image"></a>
-            </div>
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
-                    </div>
-
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="">View</a>
-                    </div>
-                </div>
-                <a href=""><img src="{% static 'images/1_front.png' %}" alternative_src="{% static 'images/1_back.png' %}" alt="image"></a>
-            </div>
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
-                    </div>
-
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="">View</a>
-                    </div>
-                </div>
-                <a href=""><img src="{% static 'images/2_front.png' %}" alternative_src="{% static 'images/2_back.png' %}" alt="image"></a>
-            </div>
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
-                    </div>
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="">View</a>
-                    </div>
-                </div>
-                <a href=""><img src="{% static 'images/4_front.png' %}" alternative_src="{% static 'images/4_back.png' %}" alt="image"></a>
-            </div>
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
-                    </div>
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="">View</a>
-                    </div>
-                </div>
-                <a href=""><img src="{% static 'images/5_front.png' %}" alternative_src="{% static 'images/5_back.png' %}" alt="image"></a>
-            </div>
-            <div class="product">
-                <div class="product_description">
-                    <div class="product_header">
-                        <p>Item 1</p>
-                        <p>$19.99</p>
-                    </div>
-
-                    <div class="product_buttons">
-                        <a class="btn_white"href="">Add to cart</a>
-                        <a class="btn_white" href="">View</a>
-                    </div>
-                </div>
-                <a href=""><img src="{% static 'images/8_front.png' %}" alternative_src="{% static 'images/8_back.png' %}" alt="image"></a>
-            </div>
-
+            {% endfor %}
         </div>
     </div>
 
