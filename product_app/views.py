@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import *
+from product_app.models import *
+
 # Create your views here.
 # def index(request):
 #     return render(request, 'main.html')
@@ -20,6 +21,11 @@ def item(request):
     context = {}
     return render(request, 'item.html', context)
 
+
+
 def create_new_product(request):
-    Product.objects.create_product(request.FILES)
-    return redirect('/store')
+    if request.method == "GET":
+        return render(request, 'create_product.html')
+    else:
+        new_product = Product.objects.create_product(request.POST, request.FILES)
+        return redirect('/store')

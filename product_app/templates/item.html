@@ -9,8 +9,130 @@
 
 
         <div class="item_container">
+            <div class="tz-gallery">
+                <div class="item_photo_container">
+
+                    <div class="main_photo lightbox">
+                        <a class="lightbox" href="{% static 'images/15_front.png' %}">
+                            <img src="{% static 'images/15_front.png' %}" alt="image">
+                        </a>
+                    </div>
+
+                    <div class="all_additional_photos">
+
+                        <div class="additional_photo">
+                            <a class="lightbox" href="{% static 'images/1_front.png' %}">
+                                <img src="{% static 'images/1_front.png' %}" alt="image">
+                            </a>
+                        </div>
+                        <div class="additional_photo">
+                            <a class="lightbox" href="{% static 'images/2_front.png' %}">
+                                <img src="{% static 'images/2_front.png' %}" alt="image">
+                            </a>
+                        </div>
+                        <div class="additional_photo">
+                            <a class="lightbox" href="{% static 'images/5_front.png' %}">
+                                <img src="{% static 'images/5_front.png' %}" alt="image">
+                            </a>
+                        </div>
+                        <div class="additional_photo">
+                            <a class="lightbox" href="{% static 'images/4_front.png' %}">
+                                <img src="{% static 'images/4_front.png' %}" alt="image">
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
 
 
+            <div class="item_description_container">
+                <h1>Item 1</h1>
+                <div class="rating_container">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto sunt quos perferendis repellat, hic, unde provident dolorum rem atque possimus veritatis delectus? Quis itaque perferendis quaerat in, dolorum excepturi odio?</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto sunt quos perferendis repellat, hic, unde provident dolorum rem atque possimus veritatis delectus? Quis itaque perferendis quaerat in, dolorum excepturi odio?</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto sunt quos perferendis repellat, hic, unde provident dolorum rem atque possimus veritatis delectus? Quis itaque perferendis quaerat in, dolorum excepturi odio?</p>
+                <br>
+                <br>
+                <p>Leave Rating:</p>
+                <div class="rating">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            </div>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+   
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+                            </div>
+                        </div>
+
+                        <br>
+                        <br>
+                        <p>Leave Review:</p>
+                        <textarea name="review" class="form-control post_content"></textarea>
+
+                        <br>
+                        <button class="btn btn-dark">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="item_container_header">
+            <h1>Featured items you may like</h1>
         </div>
 
     </div>

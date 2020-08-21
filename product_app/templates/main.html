@@ -10,6 +10,13 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+    <!--  portfolio gallery -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    <link rel="stylesheet" href="gallery-grid.css">
     
     {% load static %}
     <title>Home</title>
@@ -63,21 +70,19 @@
                         </li>
 
                         <li><a href="/">Shopping Cart</a></li>
-                        {% if user_id in request.session %}
-                        <li><a href="/">Sign Out</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'user_logout' %}">Sign Out</a></li>
                         {% else %}
-                        <li><a href="/">Sign in</a></li>
+                        <li><a href="{% url 'user_login' %}">Sign in</a></li>
                         {% endif %}
                     </ul>
                     <div class="right">
                         <div class="sign_in">
-                            <a href="/"><ion-icon name="person"></ion-icon>
-                                {% if user_id in request.session %}
-                                <small>Sign out</small>
-                                {% else %}
-                                <small>Sign in</small>
-                                {% endif %}
-                            </a> 
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'user_logout' %}"><ion-icon name="person"></ion-icon><small>Sign out</small></a> 
+                            {% else %}
+                            <a href="{% url 'user_login' %}"><ion-icon name="person"></ion-icon><small>Sign in</small></a> 
+                            {% endif %}
                         </div>
                         <div class="cart">
                             <a href="/"><ion-icon name="cart"></ion-icon><small>0</small></a>
@@ -90,7 +95,7 @@
                     <li><a href="/">Mens</a></li>
                     <li><a href="/">Womens</a></li>
                     <li><a href="/">Goods</a></li>
-                    <li><a href="/">Accessories</a></li>
+                    <li><a href="{% url 'create_new_product' %}">Create Product</a></li>
                     <li><a href="/">Blog</a></li>
                     <li><a href="/">Contacts</a></li>
                 </ul>
@@ -105,23 +110,74 @@
 
         <img src="{% static 'images/him.png' %}" alt="" id="left_img">
         <img src="{% static 'images/her.png' %}" alt="" id="right_img">
+
+
+
+        <footer>
+            <div class="footer_container">
+                <div id="denys">
+                    <div class="pers_logo_container">
+                        <img src="" alt="">
+                    </div>
+                    <div class="name_text_container">
+                        <h1>DENYS</h1>
+                    </div>
+                    <div class="info_text_container">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores fugit nesciunt odit hic dolorum! Mollitia quaerat velit sed iste. Laborum deserunt est ex fuga saepe explicabo perspiciatis quisquam quo dolorum.</p>
+                    </div>
+                    <div class="social_media">
+                        <a href=""><img src="{% static 'images/linkedin.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/facebook.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/github.svg' %}" alt=""></a>
+                        <!-- <a href=""><img src="{% static 'images/mail.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/cellphone.svg' %}" alt=""></a> -->
+                    </div>
+                </div>
+                <div id="rashid">
+                    <div class="pers_logo_container">
+                        <img src="" alt="">
+                    </div>
+                    <div class="name_text_container">
+                        <h1>RASHID</h1>
+                    </div>
+                    <div class="info_text_container">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores fugit nesciunt odit hic dolorum! Mollitia quaerat velit sed iste. Laborum deserunt est ex fuga saepe explicabo perspiciatis quisquam quo dolorum.</p>
+                    </div>
+                    <div class="social_media">
+                        <a href=""><img src="{% static 'images/linkedin.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/facebook.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/github.svg' %}" alt=""></a>
+                        <!-- <a href=""><img src="{% static 'images/mail.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/cellphone.svg' %}" alt=""></a> -->
+                    </div>
+                </div>
+                <div id="drew">
+                    <div class="pers_logo_container">
+                        <img src="" alt="">
+                    </div>
+                    <div class="name_text_container">
+                        <h1>DREW</h1>
+                    </div>
+                    <div class="info_text_container">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores fugit nesciunt odit hic dolorum! Mollitia quaerat velit sed iste. Laborum deserunt est ex fuga saepe explicabo perspiciatis quisquam quo dolorum.</p>
+                    </div>
+                    <div class="social_media">
+                        <a href=""><img src="{% static 'images/linkedin.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/facebook.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/github.svg' %}" alt=""></a>
+                        <!-- <a href=""><img src="{% static 'images/mail.svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/cellphone.svg' %}" alt=""></a> -->
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
     </div>
 
 
 
-    <footer>
-        <div class="footer_container">
-            <div id="denys">
-                <div class="pers_logo_container">
-                    <img src="" alt="">
-                </div>
-                <div class="pers_text_container">
-                    
-                </div>
 
-            </div>
-        </div>
-    </footer>
 
 
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
@@ -130,5 +186,18 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- Gallery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+        baguetteBox.run('.tz-gallery');
+    </script>
+
+
+    <!-- Add to text post field additional features -->
+    <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
 </body>
 </html>
