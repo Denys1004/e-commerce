@@ -35,6 +35,12 @@ p{
     margin: 0;
     padding: 0; 
 }
+.page_title{
+    text-align: center;
+}
+
+
+
 
 @import'./navigation';
 @import'./products';
@@ -54,11 +60,15 @@ p{
     bottom:0px;
 }
 
+
+// FOOTER
 footer{
+    max-width: 1100px;
+    margin: auto;
     background-color: $blue_bg;
     .footer_container{
         max-width: 1100px;
-        padding: 30px 20px;
+        padding: 30px 30px;
         margin: auto;
         display: flex;
         align-items: top;
@@ -85,4 +95,102 @@ footer{
 }
 #rashid{
     margin: 0 40px;
+}
+
+
+
+// Create Product Page
+.create_product_page_container{
+    background: radial-gradient(#ffffff,#ababab);
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+
+
+
+
+
+
+// Item Page
+
+.item_page_container{
+    background: radial-gradient(#ffffff, #ababab);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.item_container{
+    padding: 20px 60px 40px 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .item_photo_container{
+        margin-right: 60px;
+        // background-color: $white_color;
+        .main_photo{
+            width: 460px;
+            height: 460px;
+            img{
+                width: 460px;
+                height: 460px;
+            }
+        }
+    }
+    .all_additional_photos{
+        width: 100%;
+        text-align: left;
+        .additional_photo{
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            margin-right: 15px;
+            img{
+                width: 100px;
+                height: 100px;
+            }
+        }
+        .additional_photo:last-child{
+            margin-right: 0;
+        }
+    }
+}
+
+#baguetteBox-overlay .full-image img {
+    background-color: #fff;
+}
+.item_description_container{
+    text-align: left;
+    h1{
+        margin-bottom: 0;
+    }
+    .rating_container{
+        display: flex;
+        margin-bottom: 20px;
+        ion-icon{
+            font-size: 20px;
+            color: rgb(228, 176, 5);
+        }
+    }
+}
+
+.stars_for_rating{
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    input{
+        text-align: center;
+    }
+    .stars{
+        display: flex;
+        margin-bottom: 6px;
+        ion-icon{
+            color: rgb(228, 176, 5);
+        }
+    }
 }

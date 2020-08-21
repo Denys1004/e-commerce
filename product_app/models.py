@@ -5,21 +5,15 @@ from django.core.files.storage import FileSystemStorage
 import uuid
 
 # Create your models here.
-class Customer(models.Model):
-    user = models.OneToOneField(User, null = True, on_delete = models.CASCADE)
-    name = models.CharField(max_length = 200, null = True)
-    email = models.CharField(max_length = 200, null = True)
-    created_at = models.DateTimeField(auto_now_add = True)  								
-    updated_at = models.DateTimeField(auto_now = True)
 
-    def __str__(self):
-        return self.name
+
 class ProductManager(models.Manager):
     def create_product(self, postData, fileData):
-        new_product = self.create(name = postData['name'], price = postData['price'],description=postData['desc']) 
+        new_product = self.create(name = postData['product_name'], price = postData['product_price'],description=postData['editor1']) 
         for picture in fileData.getlist('product_image'):
             Image.objects.create(name=picture.name, image=picture, product=new_product)
         return new_product
+
 
 class Product(models.Model):
     name = models.CharField(max_length = 200)
@@ -30,6 +24,15 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
     objects = ProductManager()
 
+    def __str__(self):
+        return self.name
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, null = True, on_delete = models.CASCADE)
+    name = models.CharField(max_length = 200, null = True)
+    email = models.CharField(max_length = 200, null = True)
+    created_at = models.DateTimeField(auto_now_add = True)  								
+    updated_at = models.DateTimeField(auto_now = True)
     def __str__(self):
         return self.name
 
@@ -107,6 +110,6 @@ class ShippingAddress(models.Model):
 class Image(models.Model):
     name=models.CharField(max_length=255)
     image=models.ImageField(upload_to='product_pictures')
-    product=models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    product=models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE, default=None, blank=True, null = True)
     date_added = models.DateTimeField(auto_now_add = True)				
     updated_at = models.DateTimeField(auto_now = True)
