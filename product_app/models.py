@@ -10,6 +10,15 @@ class ProductManager(models.Manager):
         new_product = self.create(name = postData['product_name'], price = postData['product_price'],description=postData['editor1']) 
         for picture in fileData.getlist('product_image'):
             Image.objects.create(name=picture.name, image=picture, product=new_product)
+        
+        #If dropdown is selected pull the category selected otherwise create a category
+        if(fileData['catergory'] != 'NA'):
+            category=Category.objects.get(id=fileData['category'])
+        else:
+            category=Category.objects.create(name=fileData['new_category'])
+        
+        new_product.categories.add(category)
+
         return new_product
 
 

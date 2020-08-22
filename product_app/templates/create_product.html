@@ -19,10 +19,25 @@
                     <label for="product_price">Price:</label>
                     <input type="text" class="form-control" name="product_price" aria-describedby="name">
                 </div>
-
-                <textarea name="editor1" class="form-control post_content"></textarea>
-                <br>
-                <input type="file" name="product_image"  multiple>
+                <div class="form-group">
+                    <textarea name="editor1" class="form-control post_content"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="file" name="product_image"  multiple>
+                </div>
+                <div class="form-row">
+                    <div class="col-3">
+                        <select class='custom-select' name="catergory">
+                            <option value='NA' selected>Choose a category...</option>
+                            {% for catergory in catergories %}
+                                <option value="{{catergory.id}}">{{catergory.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="new_category" placeholder="or Create a new Category">
+                    </div>
+                </div>
                 <br>
                 <button class="btn btn-dark">Create</button>
             </form>

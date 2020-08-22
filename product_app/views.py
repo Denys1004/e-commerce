@@ -74,6 +74,9 @@ def item(request, id):
 
 def create_new_product(request):
     if request.method == "GET":
+        context={
+            'catergories':Category.objects.all()
+        }
         return render(request, 'create_product.html')
     else:
         new_product = Product.objects.create_product(request.POST, request.FILES)
