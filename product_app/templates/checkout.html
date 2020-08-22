@@ -1,0 +1,74 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="any_page_container">
+    <div class="item_container_header">
+        <h1>Checkout</h1>
+        <div class="left">
+            <div class="shipping_form">
+                <form action="{% url 'shipping' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" name="address" class="form-control" id="address">
+                    </div>
+                    
+                    <div class="button_form">
+                        <button class="btn btn-dark">Sign up</button>
+                    </div>
+                </form>
+            </div>
+            <div class="payment_form">
+                
+            </div>
+        </div>
+        <div class="right">
+            <div class="order_summary">
+                <div class="total_cart_info d-flex justify-content-between">
+                    <h4>Total Items: {{cur_user.cart.total_quantity}}</h4>
+                    <h4>Total Price: ${{cur_user.cart.total_cost|floatformat:2 }}</h4>
+                    <div>            
+                        <a href="{% url 'checkout' %}" class="btn btn-dark">Checkout</a>
+                    </div>
+        
+                </div>
+                <div class="cart_products_container">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Photo</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in cur_user.cart.cart_items.all %}
+                            <tr>
+                                <td>
+                                    <div class="tz-gallery">
+                                        <div class="lightbox">
+                                            <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}">
+                                                <img src="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}" alt="image">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ product.product.name }}</td>
+                                <td>{{ product.item_cost }}</td>
+                                <td>
+                                    {{ product.quantity }}
+                                </td>
+                                <td>{{ product.total_item_cost|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}

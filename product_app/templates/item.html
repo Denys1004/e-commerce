@@ -1,0 +1,125 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="item_page_container">
+        <div class="item_container_header">
+            <h1>About this item</h1>
+            <!-- <a href="/add_to_cart/{{product.id}}" class="btn">Add To Cart</a> -->
+            <a href="{% url 'add_to_cart' product.id %}" class="btn">Add To Cart</a>
+        </div>
+
+
+        <div class="item_container">
+            <div class="tz-gallery">
+                <div class="item_photo_container">
+
+                    <div class="main_photo lightbox">
+                        <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}">
+                            <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
+                        </a>
+                    </div>
+
+                    <div class="all_additional_photos">
+                        {% for picture in additional_images %}
+                            <div class="additional_photo">
+                                <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ picture.name }}">
+                                    <img src="{{ MEDIA_URL }}/product_pictures/{{ picture.name }}" alt="image">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="item_description_container">
+                <h1>{{product.name}}</h1>
+                <div class="rating_container">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                </div>
+                {{product.description|safe}}
+                <br>
+                <br>
+                <p>Leave Rating:</p>
+                <div class="rating">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            </div>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+   
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4">
+                            </div>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <div class="stars_for_rating">
+                                <div class="stars">
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                    <ion-icon name="star"></ion-icon>
+                                </div>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5">
+                            </div>
+                        </div>
+
+                        <br>
+                        <br>
+                        <p>Leave Review:</p>
+                        <textarea name="review" class="form-control post_content"></textarea>
+
+                        <br>
+                        <button class="btn btn-dark">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="item_container_header">
+            <h1>Featured items you may like</h1>
+        </div>
+
+    </div>
+
+{% endblock content %}

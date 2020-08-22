@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.login_page_container{
+    max-width: 900px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.login_title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+li{
+    list-style: none;
+}
+
+.errors{
+    color: red;
+}

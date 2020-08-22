@@ -1,0 +1,93 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+
+    <div class="product_page_container">
+        <div class="product_container_header">
+            <h1>Store</h1>
+            <div class="store_search_container">
+                <form action="/" method="get">
+                    <input class="search_bar" type="text" name="q" id="id_q" placeholder="Search...">
+                    <button class="search_button"><ion-icon name="search-outline"></ion-icon></button>
+                </form>
+            </div>
+
+        </div>
+        
+        <div class="product_container">
+            {% for product in products %}
+                <div class="product">
+                    <div class="product_description">
+                        <div class="product_header">
+                            <p>{{product.name}}</p>
+                            <p>{{product.price}}</p>
+                        </div>
+                        <div class="product_buttons">
+                            <!-- <a class="btn_white" href="/add_to_cart/{{product.id}}">Add to cart</a> -->
+                            <a class="btn_white" href="{% url 'add_to_cart' product.id %}">Add to cart</a>
+                            <a class="btn_white" href="/item/{{product.id}}">View</a>
+                        </div>
+                    </div>
+                    <a href='/item/{{product.id}}'><img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alternative_src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.0.name }}" alt="image"></a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="logo_description_container">
+                    <div class="logo_description_text_container">
+                        <div class="logo_description_text">
+                            <h1>Description</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos beatae delectus, reiciendis praesentium saepe culpa fugiat eos earum hic numquam ut aliquid esse in perspiciatis voluptatibus obcaecati ipsum molestias voluptatem!</p>
+                        </div>
+                    </div>
+                    <div class="logo_description_img_container">
+                        <div class="logo_description_img">
+                            <img class="logo_description_photo" src="{% static 'images/15_front.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="carousel-item">
+                <div id="photo100_section">
+                    <div class="photo100_section_logo_container">
+                        <img src="{% static 'images/logo_red.png' %}" alt="">
+                        <p>Win every day! Win with Us!</p>
+                        <a class="button_3" href="index.html">Join</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="carousel-item">
+                <div class="carousel_image_container">
+                    <div class="carousel_image">
+                        <img src="{% static 'images/costume.jpg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+
+{% endblock content %}

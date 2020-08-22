@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <div class="login_page_container">
+        <h3>Login</h3>
+        {% if messages %}                                                                      				 	
+        <ul class="messages">                                           								
+            {% for message in messages %}                                       							
+                <li class="errors">{{ message }}</li>       									
+            {% endfor %}                                                								
+        </ul>                                                      									
+        {% endif %} 
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" name="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control" id="password">
+            </div>
+            <div class="button_form">
+                <button class="btn btn-dark">Login</button>
+            </div>
+        </form>
+        <br>
+        <p>New User? You may sign up <a class='mybutton' href="{% url 'register' %}">here...</a></p>
+    </div>
+</body>
+</html>
