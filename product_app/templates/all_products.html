@@ -7,40 +7,40 @@
             <h1>All Products</h1>
         </div>
         <div class="all_products_container">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Photo</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in all_products %}
-                    <tr>
-                        <td>
-                            <div class="tz-gallery">
-                                <div class="main_photo lightbox">
-                                    <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}">
-                                        <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                        <div class="d-flex align-items-center">
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>
-                                <a href=""><small>Delete</small> |</a>
-                                <a href=""><small> Edit</small></a>
-                            </td>
+
+            <div class="table_row_header">
+                <div class="table_headrer table_headrer_1"><p>Photo</p></div>
+                <div class="table_headrer table_headrer_2"><p>Name</p></div>
+                <div class="table_headrer table_headrer_3"><p>Price</p></div>
+                <div class="table_headrer table_headrer_4"><p>Action</p></div>
+            </div>
+
+
+            {% for product in all_products %}
+            <div class="table_row_body">
+                <div class="table_headrer table_headrer_1">
+                    <div class="main_photo">
+                        <a href="/item/{{product.id}}">
+                            <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="table_headrer table_headrer_2"><p>{{ product.name }}</p></div>
+                <div class="table_headrer table_headrer_3"><p>${{ product.price }}</p></div>
+                <div class="table_headrer table_headrer_4">
+                    <div class="table_headrer table_headrer_4">
+                        <div class="action">                                
+                            <a href=""><small>Delete</small> |</a>
+                            <a href="{% url 'edit' product.id %}"><small> Edit</small></a>
                         </div>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-              </table>
+                    </div>
+                </div>
+            </div>
+            <hr class="hr_separator">
+            {% endfor %}
         </div>
+
 
     </div>
 

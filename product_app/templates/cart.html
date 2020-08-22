@@ -7,56 +7,48 @@
             <h1>Cart</h1>
         </div>
         <div class="total_cart_info d-flex justify-content-between">
-            <h4>Total Items: {{cur_user.cart.total_quantity}}</h4>
-            <h4>Total Price: ${{cur_user.cart.total_cost|floatformat:2 }}</h4>
-            <div>            
-                <a href="{% url 'checkout' %}" class="btn btn-dark">Checkout</a>
-            </div>
-
+            <h3>Total Items: {{cur_user.cart.total_quantity}}</h3>
+            <h3>Total Price: ${{cur_user.cart.total_cost|floatformat:2 }}</h3>
         </div>
         <div class="cart_products_container">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Photo</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Qty</th>
-                        <th scope="col">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in cur_user.cart.cart_items.all %}
-                    <tr>
-                        <td>
-                            <div class="tz-gallery">
-                                <div class="lightbox">
-                                    <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}">
-                                        <img src="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}" alt="image">
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>{{ product.product.name }}</td>
-                        <td>{{ product.item_cost }}</td>
-                        <td>
-                            {{ product.quantity }}
-                            <!-- <form action="/" method="POST">
-                                {% csrf_token %}
-                                <select name="" id="" value ="{{product.quantity}}">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4</option>
-                                </select>
-                            </form> -->
-                        </td>
-                        <td>{{ product.total_item_cost|floatformat:2 }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-              </table>
+    
+            <div class="cart_table_row_header">
+                <div class="cart_table_headrer table_headrer_1"><p>Photo</p></div>
+                <div class="cart_table_headrer table_headrer_2"><p>Name</p></div>
+                <div class="cart_table_headrer table_headrer_3"><p>Price</p></div>
+                <div class="cart_table_headrer table_headrer_4"><p>Qty</p></div>
+                <div class="cart_table_headrer table_headrer_5"><p>Total</p></div>
+            </div>
+
+
+            {% for product in cur_user.cart.cart_items.all %}
+            <div class="cart_table_row_body">
+                <div class="table_headrer">
+                    <div class="tz-gallery">
+                        <div class="lightbox">
+                            <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}">
+                                <img src="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}" alt="image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart_table_headrer table_headrer_2"><p>{{ product.product.name }}</p></div>
+                <div class="cart_table_headrer table_headrer_3"><p>${{ product.item_cost  }}</p></div>
+                <div class="cart_table_headrer table_headrer_3"><p>{{ product.quantity }}</p></div>
+                <div class="cart_table_headrer table_headrer_3"><p>{{ product.total_item_cost|floatformat:2 }}</p></div>
+
+            </div>
+            <hr class="cart_hr_separator">
+            {% endfor %}
+      
         </div>
+          
+        
+        <div class="my_btn3_container">
+            <a href="{% url 'checkout' %}" class="my_btn3">Checkout</a>
+        </div>
+
 
 
     </div>

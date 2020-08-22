@@ -2,7 +2,10 @@
     margin: 0;
     padding: 0;
 }
-
+body{
+    background: radial-gradient(#ffffff, #ababab);
+    min-height: 100vh;
+}
 .login_page_container{
     max-width: 900px;
     margin: auto;
@@ -22,4 +25,18 @@ li{
 
 .errors{
     color: red;
+}
+
+.my_btn2{
+    display: block;
+    outline: none;
+    border: none;
+    border-radius: none;
+    padding: 4px 10px 4px;
+    color: white;
+    background-color: #343a40;
+    transition: 0.5s;
+}
+.my_btn2:hover{
+    background-color: #930303;  
 }
