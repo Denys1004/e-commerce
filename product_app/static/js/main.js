@@ -66,7 +66,7 @@ $('.product_container .product').hover(function(){
   $(this).children('.product_description').slideUp(); 
 })
 
-
+$('.selectpicker').selectpicker();
 
 // Carousel
 $('.carousel').carousel({
