@@ -234,3 +234,21 @@ footer{
         height: 60px; 
     }
 }
+
+
+// Checkout Page
+.checkout_container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .right{
+        flex:1;
+    }
+    .separator{
+        width: 40px;
+        height: 30px;
+    }
+    .left{
+        flex:1;
+    }
+}
