@@ -119,3 +119,14 @@ def add_to_cart(request, id):
         cart.total_quantity+=1
         cart.save()
         return redirect('/store')
+
+
+
+def edit(request, id):
+    if request.method == "GET":
+        context = {
+            'needed_product': Product.objects.get(id = id)
+        }
+        return render(request, 'edit_product.html', context)
+    else:
+        pass

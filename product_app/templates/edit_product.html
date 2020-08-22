@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="any_page_container">
+        <div class="any_page_header">
+            <h1>Edit {{needed_product.name}}</h1>
+            
+        </div>
+
+        <div class="update_product_form_container">
+            <form class="form-group" action="/update_product" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="product_name">Name:</label>
+                    <input type="text" class="form-control" name="product_name" value="{{needed_product.name}}">
+                </div>
+                <div class="form-group">
+                    <label for="product_price">Price:</label>
+                    <input type="text" class="form-control" name="product_price" value="{{needed_product.price}}">
+                </div>
+
+                <textarea name="editor1" class="form-control post_content">{{needed_product.description}}</textarea>
+                <br>
+                <small>Existing photo:</small>
+                <div class="cur_product_images">
+                    {% for image in needed_product.images.all%}
+                    <div class="tz-gallery">
+                        <div class="main_photo lightbox">
+                            <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ image.name }}">
+                                <img src="{{ MEDIA_URL }}/product_pictures/{{ image.name }}" alt="image">
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <br>
+                <small>Add photos:</small>
+                <input type="file" name="product_image"  multiple>
+                <br>
+                <button class="my_btn2">Update</button>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock content %}

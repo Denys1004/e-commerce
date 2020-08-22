@@ -17,3 +17,33 @@
 
 
 
+.product_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.my_btn{
+    display: block;
+    padding: 6px 10px 4px;
+    color: $white_color;
+    background-color: $red;
+    transition: 0.5s;
+    &:hover{
+        background-color: #343a40; 
+    }
+}
+
+.my_btn2{
+    display: block;
+    outline: none;
+    border: none;
+    border-radius: none;
+    padding: 6px 10px 4px;
+    color: $white_color;
+    background-color: #343a40;
+    transition: 0.5s;
+    &:hover{
+        background-color: $red;  
+    }
+}
