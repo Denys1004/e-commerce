@@ -133,3 +133,27 @@ def edit(request, id):
         return render(request, 'edit_product.html', context)
     else:
         pass
+
+
+# update quantity
+def update_quantity(request, product_id):
+    current_item = CartItem.objects.get(id=product_id)
+    current_item_old_qty = current_item.quantity
+
+    current_item.quantity = request.POST['qty']
+    current_item.total_item_cost  = int(current_item.quantity) * current_item.item_cost
+    current_item.save()
+    
+    cur_user = User.objects.get(id = request.session['user_id'])
+    cart = User.objects.get(id = request.session['user_id']).cart
+
+    cart.total_quantity = (cart.total_quantity - current_item_old_qty) + int(current_item.quantity)
+    cart.save()
+    cur_user.save()
+
+    cur_user.cart.total_cost = current_item.product.price * cart.total_quantity
+    cur_user.cart.save()
+    
+
+    print('it is the rsult ', cur_user.cart.total_cost)
+    return redirect('/cart')
