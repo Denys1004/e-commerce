@@ -18,12 +18,13 @@
                 <div class="cart_table_headrer table_headrer_3"><p>Price</p></div>
                 <div class="cart_table_headrer table_headrer_4"><p>Qty</p></div>
                 <div class="cart_table_headrer table_headrer_5"><p>Total</p></div>
+                <div class="cart_table_headrer table_headrer_5"><p>Action</p></div>
             </div>
 
 
             {% for product in cur_user.cart.cart_items.all %}
             <div class="cart_table_row_body">
-                <div class="table_headrer">
+                <div class="table_headrer table_headrer_1">
                     <div class="tz-gallery">
                         <div class="lightbox">
                             <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}">
@@ -36,18 +37,21 @@
                 <div class="cart_table_headrer table_headrer_2"><p>{{ product.product.name }}</p></div>
                 <div class="cart_table_headrer table_headrer_3"><p>${{ product.item_cost  }}</p></div>
                 <div class="cart_table_headrer table_headrer_3"><p>{{ product.quantity }}</p></div>
-                <div class="cart_table_headrer table_headrer_3"><p>{{ product.total_item_cost|floatformat:2 }}</p></div>
+                <div class="cart_table_headrer table_headrer_3"><p>${{ product.total_item_cost|floatformat:2 }}</p></div>
+                <div class="cart_table_headrer table_headrer_3"><a href="/delete_cart_item/{{product.id}}">Remove</a></div>
 
             </div>
-            <hr class="cart_hr_separator">
+            <hr>
             {% endfor %}
       
         </div>
           
-        
-        <div class="my_btn3_container">
-            <a href="{% url 'checkout' %}" class="my_btn3">Checkout</a>
+        <div class="btn_container">
+            <div class="my_btn3_container">
+                <a href="{% url 'checkout' %}" class="my_btn3">Procced To Checkout</a>
+            </div>
         </div>
+
 
 
 

@@ -7,6 +7,7 @@ from login_app.models import *
 def index(request):
     return redirect('/login/login')
 
+
 def store(request):
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session["user_id"]) 
@@ -46,7 +47,6 @@ def cart(request):
 
 
 
-
 def checkout(request):
     cur_user = User.objects.get(id = request.session['user_id'])
     context = {
@@ -58,18 +58,21 @@ def checkout(request):
 
 
 
-
-
 def item(request, id):
     product=Product.objects.get(id=id)
-    last=product.images.last()
+    first_image = product.images.all()[1]
+    additional_images = product.images.all().exclude(id=first_image.id)
     cur_user = User.objects.get(id = request.session['user_id'])
     context = {
         'product':product,
-        'additional_images':product.images.all().exclude(id=last.id),
-        'num_items_in_cart':cur_user.cart.total_quantity
+        'first_image':first_image,
+        'additional_images':additional_images,
+        'num_items_in_cart':cur_user.cart.total_quantity,
+        'all_reviews':product.reviews.all(),
+        'cur_user':cur_user
     }
     return render(request, 'item.html', context)
+
 
 
 def create_new_product(request):
@@ -83,6 +86,7 @@ def create_new_product(request):
         return redirect('/store')
 
 
+
 def all_products(request):
     cur_user = User.objects.get(id = request.session['user_id'])
     context = {
@@ -90,6 +94,7 @@ def all_products(request):
         'num_items_in_cart':cur_user.cart.total_quantity
     }
     return render(request, 'all_products.html', context)
+
 
 
 def add_to_cart(request, id):
@@ -102,7 +107,7 @@ def add_to_cart(request, id):
         if item.product.id == product.id:
             found_item = True
             break
-    
+
     if found_item:
         item.quantity += 1
         item.total_item_cost = item.product.price * item.quantity
@@ -125,11 +130,67 @@ def add_to_cart(request, id):
 
 
 
-def edit(request, id):
+
+def edit(request, product_id):
     if request.method == "GET":
         context = {
-            'needed_product': Product.objects.get(id = id)
+            'needed_product': Product.objects.get(id = product_id)
         }
         return render(request, 'edit_product.html', context)
     else:
-        pass
+        updated_product = Product.objects.update_product(request.POST, request.FILES, product_id)
+        return redirect(f'/edit/{product_id}')
+
+
+
+
+def review(request, product_id):
+    product = Product.objects.get(id = product_id)
+    poster = User.objects.get(id = request.session['user_id'])
+    if 'rating' in request.POST:
+        Review.objects.create(review = request.POST['review'], rating = request.POST['rating'], poster=poster, product = product)
+    else:
+        Review.objects.create(review = request.POST['review'], poster=poster, product = product)
+    return redirect(f'/item/{product.id}')
+
+
+
+def delete_review(request, product_id, review_id):
+    review = Review.objects.get(id = review_id)
+    review.delete()
+    return redirect(f'/item/{product_id}')
+
+
+def delete_photo(request, product_id, image_id):
+    product = Product.objects.get(id = product_id)
+    image = Image.objects.get(id = image_id)
+    image.delete()
+    return redirect(f'/edit/{product_id}')
+
+
+def delete_cart_item(request, cart_item_id):
+    cart_item = CartItem.objects.get(id = cart_item_id)
+    cart_item.delete()
+    return redirect('/cart')
+
+
+
+
+def payment(request):
+    return redirect('/payment_page')
+
+def payment_page(request):
+    context = {
+        
+    }
+    return render(request, 'payment.html', context)
+
+
+def delete(request, id):
+    product = Product.objects.get(id = id)
+    product.delete()
+    return redirect('/all_products')
+
+
+
+

@@ -9,7 +9,7 @@
         </div>
 
         <div class="update_product_form_container">
-            <form class="form-group" action="/update_product" method="post" enctype="multipart/form-data">
+            <form class="form-group" action="/edit/{{needed_product.id}}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="product_name">Name:</label>
@@ -26,7 +26,10 @@
                 <div class="cur_product_images">
                     {% for image in needed_product.images.all%}
                     <div class="tz-gallery">
-                        <div class="main_photo lightbox">
+                        <div class="main_photo lightbox photo_list">
+                            <div class="delete_photo">
+                                <a href="/delete_photo/{{needed_product.id}}/{{image.id}}"><ion-icon name="remove-circle"></ion-icon></a>
+                            </div>
                             <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ image.name }}">
                                 <img src="{{ MEDIA_URL }}/product_pictures/{{ image.name }}" alt="image">
                             </a>
@@ -38,7 +41,12 @@
                 <small>Add photos:</small>
                 <input type="file" name="product_image"  multiple>
                 <br>
-                <button class="my_btn2">Update</button>
+                <div class="btn_container">
+                    <div class="my_btn3_container">
+                        <button class="my_btn3">Update</button>
+                    </div>
+                </div>
+                
             </form>
         </div>
 

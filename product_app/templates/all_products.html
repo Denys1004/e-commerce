@@ -31,14 +31,19 @@
                 <div class="table_headrer table_headrer_4">
                     <div class="table_headrer table_headrer_4">
                         <div class="action">                                
-                            <a href=""><small>Delete</small> |</a>
+                            <a href="{% url 'delete' product.id %}"><small>Delete</small> |</a>
                             <a href="{% url 'edit' product.id %}"><small> Edit</small></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <hr class="hr_separator">
+            <hr>
             {% endfor %}
+        </div>
+        <div class="btn_container">
+            <div class="my_btn3_container">
+                <a href="{% url 'create_new_product' %}" class="my_btn3">Add New Product</a>
+            </div>
         </div>
 
 

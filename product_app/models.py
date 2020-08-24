@@ -6,20 +6,34 @@ import uuid
 #from login_app.models import User, Cart
 
 class ProductManager(models.Manager):
+
     def create_product(self, postData, fileData):
         new_product = self.create(name = postData['product_name'], price = postData['product_price'],description=postData['editor1']) 
         for picture in fileData.getlist('product_image'):
             Image.objects.create(name=picture.name, image=picture, product=new_product)
         
         #If dropdown is selected pull the category selected otherwise create a category
-        if(fileData['catergory'] != 'NA'):
-            category=Category.objects.get(id=fileData['category'])
-        else:
-            category=Category.objects.create(name=fileData['new_category'])
-        
-        new_product.categories.add(category)
-
+        # if 'catergory' in postData:
+        #     if(fileData['catergory'] != 'NA'):
+        #         category=Category.objects.get(id=fileData['category'])
+        #     else:
+        #         category=Category.objects.create(name=fileData['new_category'])
+        #         new_product.categories.add(category)
         return new_product
+
+        
+    def update_product(self, postData, fileData, product_id):
+        updated_product = Product.objects.get(id = product_id)
+        updated_product.name = postData['product_name']
+        updated_product.price = postData['product_price']
+        updated_product.description = postData['editor1']
+        updated_product.save()
+
+        for picture in fileData.getlist('product_image'):
+            Image.objects.create(name=picture.name, image=picture, product=updated_product)
+
+        return updated_product
+        
 
 
 class Product(models.Model):
@@ -44,6 +58,7 @@ class Review(models.Model):
     rating=models.FloatField(null=True)
     review=models.TextField(null=True)
     poster=models.ForeignKey('login_app.User', related_name='reviews', on_delete=models.CASCADE)
+    product=models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE, null = True)
     created_at = models.DateTimeField(auto_now_add = True)  							
     updated_at = models.DateTimeField(auto_now = True)
 
