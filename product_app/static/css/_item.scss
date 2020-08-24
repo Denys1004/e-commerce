@@ -81,7 +81,6 @@
     font-size: 30px;
     color: #101010;
 }
-
 .rating label:after{
     content: '\f005';
     font-family: fontAwesome;
@@ -92,9 +91,7 @@
     top:0;
     opacity: 0;
     transition: .3s;
-    // text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
 }
-
 .rating label:hover:after,
 .rating label:hover ~ label:after,
 .rating input:checked ~ label:after{
