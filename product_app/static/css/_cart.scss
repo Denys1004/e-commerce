@@ -8,19 +8,24 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: grey;
+        background-color: $dark;
         color: $white_color;
-        padding: 6px 24px 6px 24px;
-        p{
-            font-size: 20px;
+        padding: 6px 0;
+        .table_headrer_1,
+        .table_headrer_2,
+        .table_headrer_3,
+        .table_headrer_4,
+        .table_headrer_5{
+            flex:1;
+            text-align: center;
+            p{
+                font-size: 20px;
+            }
+            a{
+                color: $white_color; 
+                font-size: 20px;
+            }
         }
-        a{
-            color: $white_color; 
-            font-size: 20px;
-        }
-    }
-    .cart_table_headrer_1{
-        margin-right: 18px;
     }
 }
 
@@ -30,42 +35,46 @@
     align-items: center;
     justify-content: space-between;
     color: $blue_bg; 
-    padding: 6px 20px 0px 5px;
-    img{
-        width: 80px;
-        height: 80px;
-    }
-    p{
-        font-size: 20px;
-    }
-    a{
-        color: $blue_bg; 
-        font-size: 20px;
-    }
-    .table_headrer_3{
-        margin-left: 20px;
-    }
-}
-.cart_hr_separator{
-    margin: 5px 0px 5px 0px;
-}
-
-.my_btn3_container{
-    width: 82px;
-    height: auto;
-    margin-left: 20px;
-    margin-top: 20px;
-    .my_btn3{
-        display: block;
-        outline: none;
-        border: none;
-        border-radius: none;
-        padding: 6px 10px 4px;
-        color: $white_color;
-        background-color: $red;  
-        transition: 0.5s;
-        &:hover{
-            background-color: #343a40;
+    .table_headrer_1,
+    .table_headrer_2,
+    .table_headrer_3,
+    .table_headrer_4,
+    .table_headrer_5{
+        flex:1;
+        text-align: center;
+        img{
+            width: 80px;
+            height: 80px;
+        }
+        p{
+            font-size: 20px;
+        }
+        a{
+            color: $blue_bg; 
+            font-size: 20px;
         }
     }
 }
+
+
+
+.btn_container{
+    padding: 20px;
+    text-align: right;
+    .my_btn3_container{
+        .my_btn3{
+            outline: none;
+            padding: 10px 20px;
+            border: none;
+            border-radius: none;
+            color: $white_color;
+            background-color: $red;  
+            transition: 0.5s;
+            &:hover{
+                background-color: $dark;
+                text-decoration: none; 
+            }
+        }
+    }
+}
+
