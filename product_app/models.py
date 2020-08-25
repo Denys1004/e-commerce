@@ -8,17 +8,24 @@ import uuid
 class ProductManager(models.Manager):
 
     def create_product(self, postData, fileData):
-        new_product = self.create(name = postData['product_name'], price = postData['product_price'],description=postData['editor1']) 
+        new_product = self.create(name=postData['product_name'], price=postData['product_price'], description=postData['editor1'], stars = 0, count=0, average=0) 
         for picture in fileData.getlist('product_image'):
             Image.objects.create(name=picture.name, image=picture, product=new_product)
-        
-        #If dropdown is selected pull the category selected otherwise create a category
-        if(postData['catergory'] != 'NA'):
-            category=Category.objects.get(id=postData['category'])
-        else:
+
+        if "category" in postData:
+            category = Category.objects.get(id=postData['category'])
+            new_product.categories.add(category)
+        if "new_category" in postData:
             category=Category.objects.create(name=postData['new_category'])
             new_product.categories.add(category)
         return new_product
+        #If dropdown is selected pull the category selected otherwise create a category
+        # if(postData['catergory'] != 'NA'):
+        #     category=Category.objects.get(id=postData['category'])
+        # else:
+        #     category=Category.objects.create(name=postData['new_category'])
+        #     new_product.categories.add(category)
+        # return new_product
 
         
     def update_product(self, postData, fileData, product_id):
@@ -40,6 +47,9 @@ class Product(models.Model):
     price = models.FloatField()
     digital = models.BooleanField(default = False)
     description= models.TextField()
+    stars = models.IntegerField(null = True)
+    count = models.IntegerField(null = True)
+    average = models.IntegerField(null = True)
     created_at = models.DateTimeField(auto_now_add = True)  							
     updated_at = models.DateTimeField(auto_now = True)
     objects = ProductManager()
@@ -54,7 +64,7 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
 
 class Review(models.Model):
-    rating=models.FloatField(null=True)
+    stars = models.IntegerField(null = True)
     review=models.TextField(null=True)
     poster=models.ForeignKey('login_app.User', related_name='reviews', on_delete=models.CASCADE)
     product=models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE, null = True)

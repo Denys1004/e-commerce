@@ -23,6 +23,8 @@ def register(request):
         new_user = User.objects.register(request.POST)
         request.session.clear()
         request.session['user_id'] = new_user.id
+        request.session['cart_id'] = new_user.cart.id
+
         return redirect('/store')
 
 # LOGIN

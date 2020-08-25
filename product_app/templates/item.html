@@ -5,7 +5,6 @@
     <div class="any_page_container">
         <div class="item_container_header">
             <h1>About this item</h1>
-            <!-- <a href="/add_to_cart/{{product.id}}" class="btn">Add To Cart</a> -->
         </div>
 
 
@@ -38,18 +37,18 @@
                     <h1>{{product.name}}</h1>
                     <a href="{% url 'add_to_cart' product.id %}" class="my_btn">Add To Cart</a>
                 </div>
+                
 
                 <div class="rating_container">
+                    {% for star in star_count %}
                     <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
+                    {% endfor %}
                 </div>
+
                 {{product.description|safe}}
                 <div class="btn_container">
                     <div class="my_btn3_container">
-                        <a class="my_btn3" href="{% url 'edit' product.id %}">Edit</a>
+                        <a href="{% url 'edit' product.id %}">Edit {{product.name}}</a>
                         
                     </div>
                 </div>
@@ -78,9 +77,9 @@
             </div>
         </div>
         
-        <div class="review_btn">
+        <!-- <div class="review_btn">
             <p id="see_all_reviews">See all reviews</p>
-        </div>
+        </div> -->
         
         {% for review in all_reviews %}
             <div class="reviews_container">
@@ -98,29 +97,29 @@
                     {% endif %}
                 </div>
 
-                {% if review.rating == 1 %}
+                {% if review.stars == 1 %}
                     <div class="stars">
                         <ion-icon name="star"></ion-icon>
                     </div>
-                {% elif review.rating == 2 %}
+                {% elif review.stars == 2 %}
                     <div class="stars">
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star"></ion-icon>
                     </div>
-                {% elif review.rating == 3 %}
-                    <div class="stars">
-                        <ion-icon name="star"></ion-icon>
-                        <ion-icon name="star"></ion-icon>
-                        <ion-icon name="star"></ion-icon>
-                    </div>
-                {% elif review.rating == 4 %}
+                {% elif review.stars == 3 %}
                     <div class="stars">
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star"></ion-icon>
+                    </div>
+                {% elif review.stars == 4 %}
+                    <div class="stars">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
                         <ion-icon name="star"></ion-icon>
                     </div>
-                {% elif review.rating == 5 %}
+                {% elif review.stars == 5 %}
                     <div class="stars">
                         <ion-icon name="star"></ion-icon>
                         <ion-icon name="star"></ion-icon>

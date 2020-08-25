@@ -8,6 +8,7 @@ class UserManager(models.Manager):
     def register(self, postData):
         pw_hash = bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt()).decode() # create the hash 
         cart = Cart.objects.create()
+
         return self.create(
             first_name=postData['first_name'], 
             last_name=postData['last_name'], 

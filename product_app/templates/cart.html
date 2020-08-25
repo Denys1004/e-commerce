@@ -39,7 +39,7 @@
                 <div class="cart_table_headrer table_headrer_3">
                     <form action="{% url 'update_quantity' product.id%}" method="POST">
                         {% csrf_token %}
-                        <select name="qty">
+                        <select id = "qty" name="qty">
                             <option value="{{ product.quantity }}"> {{ product.quantity }}</option>
                             <option value="0">0</option>
                             <option value="1">1</option>
@@ -49,7 +49,7 @@
                             <option value="5">5</option>
                             <option value="6">6</option>
                         </select>
-                        <input type="submit" value="update">
+                        <input id="update" type="submit" value="update">
                     </form>
                 </div>
                 <div class="cart_table_headrer table_headrer_3"><p>${{ product.total_item_cost|floatformat:2 }}</p></div>

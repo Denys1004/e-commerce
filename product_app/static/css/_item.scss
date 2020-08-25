@@ -36,7 +36,7 @@
 }
 
 #baguetteBox-overlay .full-image img {
-    background-color: #fff;
+    background-color: $white_color;
 }
 
 
@@ -44,6 +44,7 @@
 
 .item_description_container{
     text-align: left;
+    flex: 1;
     h1{
         margin-bottom: 0;
     }
@@ -52,7 +53,7 @@
         margin-bottom: 20px;
         ion-icon{
             font-size: 20px;
-            color: rgb(228, 176, 5);
+            color: $red;
         }
     }
 }
@@ -87,7 +88,7 @@
     position: absolute;
     display: block;
     font-size: 30px;
-    color: #e4bc1b;
+    color: $red;
     top:0;
     opacity: 0;
     transition: .3s;
@@ -120,7 +121,7 @@
         display: flex;
         margin-bottom: 6px;
         ion-icon{
-            color: rgb(228, 176, 5);
+            color: $red;
         }
     }
 }
@@ -181,7 +182,7 @@
     }
     .stars{
         ion-icon{
-            color: #e1a014;
+            color: $red;
             font-size: 20px;
         }
     }

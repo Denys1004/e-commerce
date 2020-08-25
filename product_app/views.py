@@ -60,6 +60,7 @@ def checkout(request):
 
 def item(request, id):
     product=Product.objects.get(id=id)
+    cur_rating = product.average
     first_image = product.images.all()[1]
     additional_images = product.images.all().exclude(id=first_image.id)
     cur_user = User.objects.get(id = request.session['user_id'])
@@ -69,7 +70,8 @@ def item(request, id):
         'additional_images':additional_images,
         'num_items_in_cart':cur_user.cart.total_quantity,
         'all_reviews':product.reviews.all(),
-        'cur_user':cur_user
+        'cur_user':cur_user,
+        'star_count':range(cur_rating)
     }
     return render(request, 'item.html', context)
 
@@ -80,7 +82,7 @@ def create_new_product(request):
         context={
             'catergories':Category.objects.all()
         }
-        return render(request, 'create_product.html')
+        return render(request, 'create_product.html', context)
     else:
         new_product = Product.objects.create_product(request.POST, request.FILES)
         return redirect('/store')
@@ -160,12 +162,7 @@ def update_quantity(request, product_id):
 
     cur_user.cart.total_cost = current_item.product.price * cart.total_quantity
     cur_user.cart.save()
-
-
-    print('it is the rsult ', cur_user.cart.total_cost)
     return redirect('/cart') 
-
-
 
 
 
@@ -173,15 +170,26 @@ def review(request, product_id):
     product = Product.objects.get(id = product_id)
     poster = User.objects.get(id = request.session['user_id'])
     if 'rating' in request.POST:
-        Review.objects.create(review = request.POST['review'], rating = request.POST['rating'], poster=poster, product = product)
+        product.stars = product.stars + int(request.POST['rating'])
+        product.count = product.count + 1
+        product.average = product.stars / product.count 
+        product.save()
+        Review.objects.create(review = request.POST['review'], poster=poster, product = product, stars = int(request.POST['rating']))
+        return redirect(f'/item/{product.id}')
     else:
         Review.objects.create(review = request.POST['review'], poster=poster, product = product)
-    return redirect(f'/item/{product.id}')
+        return redirect(f'/item/{product.id}')
 
 
 
 def delete_review(request, product_id, review_id):
     review = Review.objects.get(id = review_id)
+    if review.stars:
+        product = Product.objects.get(id = product_id)
+        product.count = product.count - 1
+        product.stars = product.stars - review.stars
+        product.average = product.stars / product.count
+        product.save()
     review.delete()
     return redirect(f'/item/{product_id}')
 
@@ -195,6 +203,11 @@ def delete_photo(request, product_id, image_id):
 
 def delete_cart_item(request, cart_item_id):
     cart_item = CartItem.objects.get(id = cart_item_id)
+    # print("*" * 30)
+    cart = Cart.objects.get(id = request.session['cart_id'])
+    cart.total_quantity = cart.total_quantity - cart_item.quantity
+    cart.total_cost = cart.total_cost - (cart_item.item_cost*cart_item.quantity)
+    cart.save()
     cart_item.delete()
     return redirect('/cart')
 
