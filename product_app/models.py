@@ -15,17 +15,15 @@ class ProductManager(models.Manager):
         if "category" in postData:
             category = Category.objects.get(id=postData['category'])
             new_product.categories.add(category)
-        if "new_category" in postData:
-            category=Category.objects.create(name=postData['new_category'])
-            new_product.categories.add(category)
+        elif "new_category" in postData:
+            currentCategories=Category.objects.filter(name=postData['new_category'])
+            if len(currentCategories)>0:
+                category = Category.objects.get(id=currentCategories[0])
+                new_product.categories.add(category)  
+            else:  
+                category=Category.objects.create(name=postData['new_category'])
+                new_product.categories.add(category)
         return new_product
-        #If dropdown is selected pull the category selected otherwise create a category
-        # if(postData['catergory'] != 'NA'):
-        #     category=Category.objects.get(id=postData['category'])
-        # else:
-        #     category=Category.objects.create(name=postData['new_category'])
-        #     new_product.categories.add(category)
-        # return new_product
 
         
     def update_product(self, postData, fileData, product_id):
