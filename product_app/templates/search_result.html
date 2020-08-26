@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="any_page_container">
+        <div class="item_container_header">
+          <h1>Result(s)</h1>
+            <h4 class="alert alert-info">We found {{searched_query.count}} result(s) that matches your search(s)</h4>
+      
+        </div>
+        <div class="all_products_container">
+
+            <div class="table_row_header">
+                <div class="table_headrer table_headrer_1"><p>Photo</p></div>
+                <div class="table_headrer table_headrer_2"><p>Name</p></div>
+                <div class="table_headrer table_headrer_3"><p>Price</p></div>
+                <div class="table_headrer table_headrer_4"><p>Action</p></div>
+            </div>
+
+
+            {% for search in searched_query %}
+            <div class="table_row_body">
+                <div class="table_headrer table_headrer_1">
+                    <div class="main_photo">
+                        <a href="/item/{{search.id}}">
+                            <img src="{{ MEDIA_URL }}/product_pictures/{{ search.images.all.1.name }}" alt="image">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="table_headrer table_headrer_2"><p><a href="/item/{{search.id}}">{{ search.name }}</a>
+                </p>
+                
+                </div>
+                <div class="table_headrer table_headrer_3"><p>${{search.price}}</p></div>
+                <div class="table_headrer table_headrer_4">
+                    <div class="table_headrer table_headrer_4">
+                    </div>
+                </div>
+                <a href="{% url 'add_to_cart' search.id %}" class="my_btn">Add To Cart</a>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

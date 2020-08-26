@@ -166,7 +166,7 @@ def update_quantity(request, product_id):
     cur_user.cart.save()
     if current_item.quantity == 0:
         current_item.delete()
-        
+
     return redirect('/cart') 
 
 
@@ -233,6 +233,18 @@ def delete(request, id):
     product = Product.objects.get(id = id)
     product.delete()
     return redirect('/all_products')
+
+# search bar in store
+def search_product(request):
+    products = Product.objects.all()
+  
+    search_query = request.GET.get('query')
+    if search_query != '' and search_query is not None:
+        searched_query = products.filter(name__contains = search_query)
+        context = {
+            'searched_query': searched_query
+        }
+    return render(request, 'search_result.html', context)
 
 
 
