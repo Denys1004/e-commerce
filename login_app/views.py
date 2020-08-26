@@ -43,5 +43,9 @@ def login(request):
         else:
             user = User.objects.get(email = request.POST['email'])
             request.session['user_id'] = user.id
+            request.session['cart_id'] = user.cart.id
             return redirect('/store')
         
+def logout(request):
+    request.session.clear()
+    return redirect('/store')

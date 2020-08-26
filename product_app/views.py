@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from product_app.models import *
 from django.contrib.auth.decorators import login_required
 from login_app.models import *
@@ -15,7 +15,7 @@ def store(request):
         if len(cur_user.cart.cart_items.all()) > 0:
             num_items_in_cart = cur_user.cart.total_quantity
             products = Product.objects.all()								
-            paginator = Paginator(products, 3)									
+            paginator = Paginator(products, 9)									
             page = request.GET.get('page')													
             products = paginator.get_page(page)			
             context = {
@@ -26,7 +26,7 @@ def store(request):
         else:
             num_items_in_cart = cur_user.cart.total_quantity
             products = Product.objects.all()								
-            paginator = Paginator(products, 3)									
+            paginator = Paginator(products, 9)									
             page = request.GET.get('page')													
             products = paginator.get_page(page)
             context = {
@@ -34,9 +34,9 @@ def store(request):
             }
             return render(request, 'store.html', context)
     else:
-        num_items_in_cart = cur_user.cart.total_quantity
+        num_items_in_cart = 0
         products = Product.objects.all()								
-        paginator = Paginator(products, 3)									
+        paginator = Paginator(products, 9)									
         page = request.GET.get('page')													
         products = paginator.get_page(page)
         context = {
@@ -206,6 +206,21 @@ def review(request, product_id):
         return redirect(f'/item/{product.id}')
 
 
+def search_product(request):
+    products = Product.objects.all()
+    categories = Category.objects.all()
+    search_query = request.GET['query']
+    if search_query != '' and search_query is not None:
+        searched_query = products.filter(name__icontains = search_query) 
+    # search by category
+        searched_category = categories.filter(name__icontains = search_query)
+        context = {
+            'searched_query': searched_query,
+            'searched_category': searched_category
+        }
+    return render(request, 'search_result.html', context)
+
+
 
 def delete_review(request, product_id, review_id):
     review = Review.objects.get(id = review_id)
@@ -256,4 +271,21 @@ def delete(request, id):
 
 
 
+def qty_of_cart_items(request):
+    cart = Cart.objects.get(id = request.session['cart_id'])
+    items = cart.total_quantity
+    return HttpResponse(f'{items}') 
+
+
+def clear_cart(request):
+    cart = Cart.objects.get(id = request.session['cart_id'])
+    # cart.total_quantity  = 0
+    # cart.total_cost = 0
+    user=User.objects.get(id=request.session['user_id'])
+    new_cart=Cart.objects.create()
+    user.cart=new_cart
+    user.save()
+    cart.delete()
+    request.session['cart_id'] = new_cart.id
+    return redirect('/cart')
 

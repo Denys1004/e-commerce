@@ -8,8 +8,8 @@
         <div class="product_container_header">
             <h1>Store</h1>
             <div class="store_search_container">
-                <form action="/" method="get">
-                    <input class="search_bar" type="text" name="q" id="id_q" placeholder="Search...">
+                <form action="{% url 'search_product' %}" method="get">
+                    <input class="search_bar" type="text" name="query" id="id_q" placeholder="Search...">
                     <button class="search_button"><ion-icon name="search-outline"></ion-icon></button>
                 </form>
             </div>

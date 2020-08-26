@@ -74,21 +74,21 @@
 
                         <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
                         {% if request.session.user_id %}
-                        <li><a href="/">Sign Out</a></li>
+                        <li><a href="/login/logout/">Sign Out</a></li>
                         {% else %}
-                        <li><a href="/">Sign in</a></li>
+                        <li><a href="/login/login/">Sign in</a></li>
                         {% endif %}
                     </ul>
                     <div class="right">
                         <div class="sign_in">
                             {% if request.session.user_id %}
-                            <a href="/"><ion-icon name="person"></ion-icon><small>Sign out</small></a> 
+                            <a href="/login/logout/"><ion-icon name="person"></ion-icon><small>Sign out</small></a> 
                             {% else %}
-                            <a href="/"><ion-icon name="person"></ion-icon><small>Sign in</small></a> 
+                            <a href="/login/login/"><ion-icon name="person"></ion-icon><small>Sign in</small></a> 
                             {% endif %}
                         </div>
                         <div class="cart">
-                            <a href="{% url 'cart' %}"><ion-icon name="cart"></ion-icon><small>{{num_items_in_cart}}</small></a>
+                            <a href="{% url 'cart' %}"><ion-icon name="cart"></ion-icon><small id="cart_number">{{num_items_in_cart}}</small></a>
                         </div>
                     </div>
                 </div>

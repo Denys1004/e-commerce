@@ -66,6 +66,9 @@ $('.product_container .product').hover(function(){
   $(this).children('.product_description').slideUp(); 
 })
 
+
+
+// cart page, update qty
 $("body").on('change','.qty',(function() {
     var quantity=$(this).val();
     var product_id=$(this).attr('product_id');
@@ -79,9 +82,19 @@ $("body").on('change','.qty',(function() {
         success:(result)=>{
             console.log(result);
             $('#display_products').html(result)
+            $.ajax({
+              url: '/qty_of_cart_items',
+              method: 'GET',
+              success:(result) =>{
+                $('#cart_number').html(result)
+              }
+            })
         }
     })
   }))
+
+
+
 
 // Carousel
 $('.carousel').carousel({
