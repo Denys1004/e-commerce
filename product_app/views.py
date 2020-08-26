@@ -180,10 +180,10 @@ def update_quantity(request, product_id):
     cur_user.cart.save()
     if current_item.quantity == 0:
         current_item.delete()
-<<<<<<< HEAD
+
 
     return redirect('/cart') 
-=======
+
     
     context = {
         'num_items_in_cart':cur_user.cart.total_quantity,
@@ -192,7 +192,7 @@ def update_quantity(request, product_id):
     }
 
     return render(request, 'cart_partial.html', context)
->>>>>>> 242fa30ca95a1dd8eaef9c4bf2e835e1330532f8
+
 
 
 
