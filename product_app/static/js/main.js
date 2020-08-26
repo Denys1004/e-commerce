@@ -66,9 +66,25 @@ $('.product_container .product').hover(function(){
   $(this).children('.product_description').slideUp(); 
 })
 
-// $('.selectpicker').selectpicker();
+$("body").on('change','.qty',(function() {
+    var quantity=$(this).val();
+    var product_id=$(this).attr('product_id');
+    $.ajax({
+        url: `${product_id}/update_quantity`,
+        method: 'POST',
+        data: {
+            qty: quantity,
+            csrfmiddlewaretoken: csrftoken
+        },
+        success:(result)=>{
+            console.log(result);
+            $('#display_products').html(result)
+        }
+    })
+  }))
 
 // Carousel
 $('.carousel').carousel({
   interval: 3000
 })
+

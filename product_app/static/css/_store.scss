@@ -17,6 +17,26 @@
     }
 }
 
+.pagination_container{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    .pagination{
+        margin: auto;
+        a{
+            padding: 1.4px 18px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+    }
+
+#page_num{
+    font-size: 20px;
+}
+}
+
+
 .product_container{
     z-index: 50;
     max-width: 1100px;

@@ -1,0 +1,75 @@
+<div class="total_cart_info d-flex justify-content-between">
+    <h3>Total Items: {{cur_user.cart.total_quantity}}</h3>
+    <h3>Total Price: ${{cur_user.cart.total_cost|floatformat:2 }}</h3>
+</div>
+<div class="cart_products_container">
+
+    <div class="cart_table_row_header">
+        <div class="cart_table_headrer table_headrer_1">
+            <p>Photo</p>
+        </div>
+        <div class="cart_table_headrer table_headrer_2">
+            <p>Name</p>
+        </div>
+        <div class="cart_table_headrer table_headrer_3">
+            <p>Price</p>
+        </div>
+        <div class="cart_table_headrer table_headrer_4">
+            <p>Qty</p>
+        </div>
+        <div class="cart_table_headrer table_headrer_5">
+            <p>Total</p>
+        </div>
+        <div class="cart_table_headrer table_headrer_5">
+            <p>Action</p>
+        </div>
+    </div>
+
+
+
+    {% for product in cur_user.cart.cart_items.all %}
+    <div class="cart_table_row_body">
+        <div class="table_headrer table_headrer_1">
+            <div class="tz-gallery">
+                <div class="lightbox">
+                    <a class="lightbox"
+                        href="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}">
+                        <img src="{{ MEDIA_URL }}/product_pictures/{{ product.product.images.all.1.name }}"
+                            alt="image">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart_table_headrer table_headrer_2">
+            <p>{{ product.product.name }}</p>
+        </div>
+        <div class="cart_table_headrer table_headrer_3">
+            <p>${{ product.item_cost  }}</p>
+        </div>
+        <div class="cart_table_headrer table_headrer_3">
+            <form action="{% url 'update_quantity' product.id%}" method="POST">
+                {% csrf_token %}
+                <select class="qty" name="qty" product_id="{{product.id}}">
+                    <option value="{{ product.quantity }}"> {{ product.quantity }}</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+                <input id="update" type="submit" value="update">
+            </form>
+        </div>
+        <div class="cart_table_headrer table_headrer_3">
+            <p>${{ product.total_item_cost|floatformat:2 }}</p>
+        </div>
+        <div class="cart_table_headrer table_headrer_3"><a href="/delete_cart_item/{{product.id}}">Remove</a>
+        </div>
+
+    </div>
+    <hr>
+    {% endfor %}
+</div>
