@@ -11,6 +11,8 @@
             <div class="table_row_header">
                 <div class="table_headrer table_headrer_1"><p>Photo</p></div>
                 <div class="table_headrer table_headrer_2"><p>Name</p></div>
+                <div class="table_headrer table_headrer_2"><p>Categories</p></div>
+                <div class="table_headrer table_headrer_2"><p>Rating</p></div>
                 <div class="table_headrer table_headrer_3"><p>Price</p></div>
                 <div class="table_headrer table_headrer_4"><p>Action</p></div>
             </div>
@@ -27,12 +29,19 @@
                 </div>
 
                 <div class="table_headrer table_headrer_2"><p>{{ product.name }}</p></div>
+                <div class="table_headrer table_headrer_2">
+                    {% for category in product.categories.all %}
+                    <small>{{category.name}}</small>
+                    {% endfor %}
+
+                </div>
+                <div class="table_headrer table_headrer_3"><p>{{ product.average }}</p></div>
                 <div class="table_headrer table_headrer_3"><p>${{ product.price }}</p></div>
                 <div class="table_headrer table_headrer_4">
                     <div class="table_headrer table_headrer_4">
                         <div class="action">                                
                             <a href="{% url 'delete' product.id %}"><small>Delete</small> |</a>
-                            <a href="{% url 'edit' product.id %}"><small> Edit</small></a>
+                            <a href="{% url 'edit' product.id %}"><small>Edit</small></a>
                         </div>
                     </div>
                 </div>
