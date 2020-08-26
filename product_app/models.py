@@ -8,21 +8,28 @@ import uuid
 class ProductManager(models.Manager):
 
     def create_product(self, postData, fileData):
+        print('*'*30)
+        print(postData)
+        print('*'*30)
+        
         new_product = self.create(name=postData['product_name'], price=postData['product_price'], description=postData['editor1'], stars = 0, count=0, average=0) 
         for picture in fileData.getlist('product_image'):
             Image.objects.create(name=picture.name, image=picture, product=new_product)
 
-        if "category" in postData:
-            category = Category.objects.get(id=postData['category'])
-            new_product.categories.add(category)
-        elif "new_category" in postData:
-            currentCategories=Category.objects.filter(name=postData['new_category'])
-            if len(currentCategories)>0:
-                category = Category.objects.get(id=currentCategories[0])
-                new_product.categories.add(category)  
-            else:  
-                category=Category.objects.create(name=postData['new_category'])
-                new_product.categories.add(category)
+        if len(postData['categories'])>0:
+            for category_id in postData.getlist('categories'):
+                new_product.categories.add(Category.objects.get(id=category_id)) 
+        elif len(postData['new_category'])>0:
+            category_list=postData['new_category'].split(', ')
+            for category in category_list:
+                currentCategories=Category.objects.filter(name=category)
+                if len(currentCategories)>0:
+                    category = Category.objects.get(id=currentCategories[0])
+                    new_product.categories.add(category)  
+                else:  
+                    category=Category.objects.create(name=postData['new_category'])
+                    new_product.categories.add(category)
+        new_product.save()
         return new_product
 
         

@@ -6,8 +6,7 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
-    return redirect('/login/login')
-
+    return redirect('/store')
 
 def store(request):
     if 'user_id' in request.session:
@@ -77,16 +76,20 @@ def item(request, id):
     cur_rating = product.average
     first_image = product.images.all()[1]
     additional_images = product.images.all().exclude(id=first_image.id)
-    cur_user = User.objects.get(id = request.session['user_id'])
+    
     context = {
         'product':product,
         'first_image':first_image,
         'additional_images':additional_images,
-        'num_items_in_cart':cur_user.cart.total_quantity,
         'all_reviews':product.reviews.all(),
-        'cur_user':cur_user,
         'star_count':range(cur_rating)
     }
+
+    if('user_id' in request.session):
+        cur_user = User.objects.get(id = request.session['user_id'])
+        context['num_items_in_cart']=cur_user.cart.total_quantity
+        context['cur_user']=cur_user
+
     return render(request, 'item.html', context)
 
 
@@ -98,6 +101,9 @@ def create_new_product(request):
         }
         return render(request, 'create_product.html', context)
     else:
+        print('*'*30)
+        print(request.POST.getlist('categories'))
+        print('*'*30)
         new_product = Product.objects.create_product(request.POST, request.FILES)
         return redirect('/store')
 
