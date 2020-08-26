@@ -262,12 +262,17 @@ def delete(request, id):
 # search bar in store
 def search_product(request):
     products = Product.objects.all()
+    categories = Category.objects.all()
   
-    search_query = request.GET.get('query')
+    search_query = request.GET['query']
     if search_query != '' and search_query is not None:
-        searched_query = products.filter(name__contains = search_query)
+        searched_query = products.filter(name__icontains = search_query) 
+    # search by category
+        searched_category = categories.filter(name__icontains = search_query)
+
         context = {
-            'searched_query': searched_query
+            'searched_query': searched_query,
+            'searched_category': searched_category
         }
     return render(request, 'search_result.html', context)
 

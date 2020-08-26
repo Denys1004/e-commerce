@@ -5,7 +5,6 @@
     <div class="any_page_container">
         <div class="item_container_header">
           <h1>Result(s)</h1>
-            <h4 class="alert alert-info">We found {{searched_query.count}} result(s) that matches your search(s)</h4>
       
         </div>
         <div class="all_products_container">
@@ -41,6 +40,35 @@
             </div>
             <hr>
             {% endfor %}
+        </div>
+       
+        <div class="all_products_container">
+
+            {% for category in searched_category%}
+            {% for product in category.products.all%}
+            <div class="table_row_body">
+                <div class="table_headrer table_headrer_1">
+                    <div class="main_photo">
+                        <a href="/item/{{product.id}}">
+                            <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="table_headrer table_headrer_2"><p><a href="/item/{{product.id}}">{{ product.name }}</a>
+                </p>
+                
+                </div>
+                <div class="table_headrer table_headrer_3"><p>${{product.price}}</p></div>
+                <div class="table_headrer table_headrer_4">
+                    <div class="table_headrer table_headrer_4">
+                    </div>
+                </div>
+                <a href="{% url 'add_to_cart' product.id %}" class="my_btn">Add To Cart</a>
+            </div>
+            <hr>
+            {% endfor %}
+        {% endfor %}
         </div>
     </div>
 
