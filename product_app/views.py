@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from product_app.models import *
 from django.contrib.auth.decorators import login_required
 from login_app.models import *
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
@@ -11,22 +12,35 @@ def index(request):
 def store(request):
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session["user_id"]) 
-
         if len(cur_user.cart.cart_items.all()) > 0:
             num_items_in_cart = cur_user.cart.total_quantity
+            products = Product.objects.all()								
+            paginator = Paginator(products, 3)									
+            page = request.GET.get('page')													
+            products = paginator.get_page(page)			
             context = {
-                'products':Product.objects.all(),
-                'num_items_in_cart':num_items_in_cart
+                'num_items_in_cart':num_items_in_cart,
+                'products' : products
             }
             return render(request, 'store.html', context)
         else:
+            num_items_in_cart = cur_user.cart.total_quantity
+            products = Product.objects.all()								
+            paginator = Paginator(products, 3)									
+            page = request.GET.get('page')													
+            products = paginator.get_page(page)
             context = {
-                'products':Product.objects.all()
+                'products' : products
             }
             return render(request, 'store.html', context)
     else:
+        num_items_in_cart = cur_user.cart.total_quantity
+        products = Product.objects.all()								
+        paginator = Paginator(products, 3)									
+        page = request.GET.get('page')													
+        products = paginator.get_page(page)
         context = {
-            'products':Product.objects.all()
+            'products' : products
         }
         return render(request, 'store.html', context)
 
@@ -148,21 +162,32 @@ def edit(request, product_id):
 def update_quantity(request, product_id):
     current_item = CartItem.objects.get(id=product_id)
     current_item_old_qty = current_item.quantity
+    item_old_total_cost = current_item.total_item_cost
 
-    current_item.quantity = request.POST['qty']
-    current_item.total_item_cost  = int(current_item.quantity) * current_item.item_cost
+    current_item.quantity = int(request.POST['qty'])
+
+    current_item.total_item_cost  = current_item.quantity * current_item.item_cost
     current_item.save()
 
     cur_user = User.objects.get(id = request.session['user_id'])
     cart = User.objects.get(id = request.session['user_id']).cart
 
-    cart.total_quantity = (cart.total_quantity - current_item_old_qty) + int(current_item.quantity)
+    cart.total_quantity = (cart.total_quantity - current_item_old_qty) + current_item.quantity
     cart.save()
     cur_user.save()
 
-    cur_user.cart.total_cost = current_item.product.price * cart.total_quantity
+    cur_user.cart.total_cost = (cur_user.cart.total_cost - item_old_total_cost) + current_item.total_item_cost
     cur_user.cart.save()
-    return redirect('/cart') 
+    if current_item.quantity == 0:
+        current_item.delete()
+    
+    context = {
+        'num_items_in_cart':cur_user.cart.total_quantity,
+        'cur_user':cur_user,
+        'product':current_item
+    }
+
+    return render(request, 'cart_partial.html', context)
 
 
 
