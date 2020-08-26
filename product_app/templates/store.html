@@ -15,6 +15,29 @@
             </div>
 
         </div>
+        <div class="pagination_container">
+            <!-- this link need for << >> symbols -->
+            <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"> -->
+            <div class="pagination">
+                {% if products.has_previous %} 										
+                    <a href="?page=1"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>      					
+                    <a href="?page={{ products.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a>	
+                {% endif %} 
+        
+                {% for num in products.paginator.page_range %} 	
+                    {% if products.number == num %}
+                        <strong id="page_num">{{ num }}</strong>											
+                    {% elif num > products.number|add:'-2' and num < products.number|add:'2' %}					
+                        <a href="?page={{num}}">{{num}}</a>													
+                    {% endif %}														
+                {% endfor %}
+        
+                {% if products.has_next %} 												
+                    <a href="?page={{ products.next_page_number }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    <a href="?page={{ products.paginator.num_pages }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                {% endif %} 
+            </div>
+        </div>
         
         <div class="product_container">
             {% for product in products %}
@@ -25,7 +48,6 @@
                             <p>${{product.price}}</p>
                         </div>
                         <div class="product_buttons">
-                            <!-- <a class="btn_white" href="/add_to_cart/{{product.id}}">Add to cart</a> -->
                             <a class="btn_white" href="{% url 'add_to_cart' product.id %}">Add to cart</a>
                             <a class="btn_white" href="/item/{{product.id}}">View</a>
                         </div>
