@@ -14,7 +14,9 @@ def store(request):
     page = request.GET.get('page')													
     products = paginator.get_page(page)			
     context = {
-        'products' : products
+        'products' : products,
+        'first_three_categories':Category.objects.all()[:3],
+        'additional_categories':Category.objects.all()[3:]
     }
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session["user_id"]) 
@@ -295,4 +297,18 @@ def profile(request):
         'current_user': User.objects.get(id = request.session['user_id'])
     }
     return render(request, 'profile.html', context)
+
+def display_category(request, category_id):
+    category=Category.objects.get(id=category_id)
+    category_products=category.products.all()
+    
+    paginator = Paginator(category_products, 6)									
+    page = request.GET.get('page')													
+    category_products = paginator.get_page(page)			
+    
+    context = {
+        'products':category_products,
+    }
+
+    return render(request, 'category_partial.html', context)
 

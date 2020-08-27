@@ -94,6 +94,19 @@ $("body").on('change','.qty',(function() {
   }))
 
 
+//category ajax
+$("body").on('click','.category_link',(function(e) {
+    e.preventDefault()
+    var category_id=$(this).attr('category_id')
+    $.ajax({
+        url:`/display_category/${category_id}`,
+        method:'GET',
+        success:(response)=>{
+            $('.product_container').html(response)
+        }
+    })
+    
+}))
 
 
 // Carousel
