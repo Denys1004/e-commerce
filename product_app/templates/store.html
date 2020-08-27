@@ -27,7 +27,7 @@
                         <div class="product_buttons">
                             <!-- <a class="btn_white" href="/add_to_cart/{{product.id}}">Add to cart</a> -->
                             {% if request.session.user_id != null %}
-                            <a class="btn_white" href="{% url 'add_to_cart' product.id %}">Add to cart</a>
+                            <a class="btn_white add_to_cart" href="{% url 'add_to_cart' product.id %}" product_id={{product.id}}>Add to cart</a>
                             {% endif %}
                             <a class="btn_white" href="/item/{{product.id}}">View</a>
                         </div>
