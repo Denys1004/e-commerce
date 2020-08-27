@@ -34,8 +34,13 @@
 
             <div class="item_description_container">
                 <div class="product_header">
-                    <h1>{{product.name}}</h1>
+                    <div>
+                        <h1 class='red'>{{product.name}}</h1>
+                        <p>Price: ${{product.price }}</p>
+                    </div>
+                    {% if request.session.user_id != null %}
                     <a href="{% url 'add_to_cart' product.id %}" class="my_btn">Add To Cart</a>
+                    {% endif %}
                 </div>
                 
 
@@ -44,42 +49,48 @@
                     <ion-icon name="star"></ion-icon>
                     {% endfor %}
                 </div>
+                <p>{{product.description|safe}}</p>
+                
 
-                {{product.description|safe}}
-                <div class="btn_container">
-                    <div class="my_btn3_container">
-                        <a href="{% url 'edit' product.id %}">Edit {{product.name}}</a>
-                        
+
+                {% if request.session.user_id != null %}
+                    <div class="btn_container">
+                        <div class="my_btn3_container">
+                            <a href="{% url 'edit' product.id %}" class="red">EDIT</a>
+                        </div>
                     </div>
-                </div>
 
-                <p>Leave Rating:</p>
-                <div class="leave_rating_container">
-                    <form action="{% url 'review' product.id %}" method="post">
-                        {% csrf_token %}
-                        <div class="rating">
-                            <input name="rating" type="radio" id="inlineCheckbox1" value="5"><label for="inlineCheckbox1"></label>
-                            <input name="rating" type="radio" id="inlineCheckbox2" value="4"><label for="inlineCheckbox2"></label>
-                            <input name="rating" type="radio" id="inlineCheckbox3" value="3"><label for="inlineCheckbox3"></label>
-                            <input name="rating" type="radio" id="inlineCheckbox4" value="2"><label for="inlineCheckbox4"></label>
-                            <input name="rating" type="radio" id="inlineCheckbox5" value="1"><label for="inlineCheckbox5"></label>
-                        </div>
-                        <p>Leave Review:</p>
-                        <textarea name="review" class="form-control post_content"></textarea>
-
-                        <div class="btncreate_container">
-                            <div class="create_btn_container">
-                                <button class="create_btn">Submit</button>
+                    <p>Leave Rating:</p>
+                    <div class="leave_rating_container">
+                        <form action="{% url 'review' product.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="rating">
+                                <input name="rating" type="radio" id="inlineCheckbox1" value="5"><label for="inlineCheckbox1"></label>
+                                <input name="rating" type="radio" id="inlineCheckbox2" value="4"><label for="inlineCheckbox2"></label>
+                                <input name="rating" type="radio" id="inlineCheckbox3" value="3"><label for="inlineCheckbox3"></label>
+                                <input name="rating" type="radio" id="inlineCheckbox4" value="2"><label for="inlineCheckbox4"></label>
+                                <input name="rating" type="radio" id="inlineCheckbox5" value="1"><label for="inlineCheckbox5"></label>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                            <p>Leave Review:</p>
+                            <textarea name="review" class="form-control post_content"></textarea>
+
+                            <div class="btncreate_container">
+                                <div class="create_btn_container">
+                                    <button class="create_btn">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+
             </div>
         </div>
         
-        <!-- <div class="review_btn">
-            <p id="see_all_reviews">See all reviews</p>
-        </div> -->
+        {% if product.reviews.all %}
+        <div class="review_btn">
+            <p id="see_all_reviews">Reviews: </p>
+        </div>
+        {% endif %}
         
         {% for review in all_reviews %}
             <div class="reviews_container">
@@ -92,7 +103,7 @@
                     </div>
                     {% if review.poster.id == cur_user.id %}
                     <div class="delete_review">
-                        <a href="/delete_review/{{product.id}}/{{review.id}}">Delete Review</a>
+                        <a href="/delete_review/{{product.id}}/{{review.id}}" class="red">Delete Review</a>
                     </div>
                     {% endif %}
                 </div>
@@ -136,12 +147,32 @@
             </div>
             <hr>
         {% endfor %}
-        
-
-        <div class="item_container_header">
-            <h1>Featured items you may like</h1>
+    </div>
+    <div class="popular_items">
+        <h1><ion-icon name="star"></ion-icon> Popular items <ion-icon name="star"></ion-icon></h1>
+        {% for product in popular_products %}
+        <div class="popular_items_container">
+            <div class="main_photo">
+                <a href="/item/{{product.id}}">
+                    <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
+                </a>
+            </div>
+            <div class="popular_item_description">
+                <h3>{{product.name}}</h3>
+                <div class="stars">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                </div>
+            </div>
         </div>
-
+        {% endfor %}
     </div>
 
 {% endblock content %}
+
+
+
+

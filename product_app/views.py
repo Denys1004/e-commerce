@@ -15,7 +15,7 @@ def store(request):
         if len(cur_user.cart.cart_items.all()) > 0:
             num_items_in_cart = cur_user.cart.total_quantity
             products = Product.objects.all()								
-            paginator = Paginator(products, 9)									
+            paginator = Paginator(products, 6)									
             page = request.GET.get('page')													
             products = paginator.get_page(page)			
             context = {
@@ -26,7 +26,7 @@ def store(request):
         else:
             num_items_in_cart = cur_user.cart.total_quantity
             products = Product.objects.all()								
-            paginator = Paginator(products, 9)									
+            paginator = Paginator(products, 6)									
             page = request.GET.get('page')													
             products = paginator.get_page(page)
             context = {
@@ -36,7 +36,7 @@ def store(request):
     else:
         num_items_in_cart = 0
         products = Product.objects.all()								
-        paginator = Paginator(products, 9)									
+        paginator = Paginator(products, 6)									
         page = request.GET.get('page')													
         products = paginator.get_page(page)
         context = {
@@ -77,16 +77,28 @@ def item(request, id):
     cur_rating = product.average
     first_image = product.images.all()[1]
     additional_images = product.images.all().exclude(id=first_image.id)
-    cur_user = User.objects.get(id = request.session['user_id'])
-    context = {
-        'product':product,
-        'first_image':first_image,
-        'additional_images':additional_images,
-        'num_items_in_cart':cur_user.cart.total_quantity,
-        'all_reviews':product.reviews.all(),
-        'cur_user':cur_user,
-        'star_count':range(cur_rating)
-    }
+    popular_products = Product.objects.filter(average = 5)
+    if 'user_id' in request.session:
+        cur_user = User.objects.get(id = request.session['user_id'])
+        context = {
+            'product':product,
+            'first_image':first_image,
+            'additional_images':additional_images,
+            'num_items_in_cart':cur_user.cart.total_quantity,
+            'all_reviews':product.reviews.all(),
+            'cur_user':cur_user,
+            'star_count':range(cur_rating),
+            'popular_products': popular_products
+        }
+    if 'user_id' not in request.session:
+        context = {
+            'product':product,
+            'first_image':first_image,
+            'additional_images':additional_images,
+            'all_reviews':product.reviews.all(),
+            'star_count':range(cur_rating),
+            'popular_products': popular_products
+        }
     return render(request, 'item.html', context)
 
 
@@ -210,14 +222,23 @@ def search_product(request):
     products = Product.objects.all()
     categories = Category.objects.all()
     search_query = request.GET['query']
+
     if search_query != '' and search_query is not None:
         searched_query = products.filter(name__icontains = search_query) 
-    # search by category
+        # search by category
         searched_category = categories.filter(name__icontains = search_query)
-        context = {
-            'searched_query': searched_query,
-            'searched_category': searched_category
-        }
+        if 'user_id' in request.session:
+            cur_user = User.objects.get(id = request.session['user_id'])
+            context = {
+                'num_items_in_cart':cur_user.cart.total_quantity,
+                'searched_query': searched_query,
+                'searched_category': searched_category
+            }
+        if 'user_id' not in request.session:
+            context = {
+                'searched_query': searched_query,
+                'searched_category': searched_category
+            }
     return render(request, 'search_result.html', context)
 
 
@@ -279,8 +300,6 @@ def qty_of_cart_items(request):
 
 def clear_cart(request):
     cart = Cart.objects.get(id = request.session['cart_id'])
-    # cart.total_quantity  = 0
-    # cart.total_cost = 0
     user=User.objects.get(id=request.session['user_id'])
     new_cart=Cart.objects.create()
     user.cart=new_cart

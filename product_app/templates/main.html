@@ -87,17 +87,21 @@
                             <a href="/login/login/"><ion-icon name="person"></ion-icon><small>Sign in</small></a> 
                             {% endif %}
                         </div>
+                        {% if request.session.user_id != null %}
                         <div class="cart">
                             <a href="{% url 'cart' %}"><ion-icon name="cart"></ion-icon><small id="cart_number">{{num_items_in_cart}}</small></a>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
             <div id="nav_botton">
                 <ul> 
                     <li><a href='/store'>Store</a></li>
+                    {% if request.session.user_id != null %}
                     <li><a href="{% url 'create_new_product' %}">Create Product</a></li>
                     <li><a href="{% url 'all_products' %}">All Products</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

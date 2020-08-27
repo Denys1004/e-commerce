@@ -29,9 +29,6 @@
                 <div class="cart_table_headrer table_headrer_5">
                     <p>Total</p>
                 </div>
-                <div class="cart_table_headrer table_headrer_5">
-                    <p>Action</p>
-                </div>
             </div>
 
 
@@ -69,13 +66,10 @@
                             <option value="5">5</option>
                             <option value="6">6</option>
                         </select>
-                        <input id="update" type="submit" value="update">
                     </form>
                 </div>
                 <div class="cart_table_headrer table_headrer_3">
                     <p>${{ product.total_item_cost|floatformat:2 }}</p>
-                </div>
-                <div class="cart_table_headrer table_headrer_3"><a href="/delete_cart_item/{{product.id}}">Remove</a>
                 </div>
 
             </div>
@@ -85,17 +79,19 @@
 
     </div>
 
-    <div class="btn_container">
-        <div class="my_btn3_container">
-            <a href="{% url 'checkout' %}" class="my_btn3">Procced To Checkout</a>
+    <div class="action_buttons">
+        <div class="btn_container">
+            <div class="my_btn4_container">
+                <a href="{% url 'clear_cart' %}" class="my_btn4">Clear Cart</a>
+            </div>
+        </div>
+        <div class="btn_container">
+            <div class="my_btn3_container">
+                <a href="{% url 'checkout' %}" class="my_btn3">Procced To Checkout</a>
+            </div>
         </div>
     </div>
 
-    <div class="btn_container">
-        <div class="my_btn3_container">
-            <a href="{% url 'clear_cart' %}" class="my_btn3">Clear Cart</a>
-        </div>
-    </div>
 
 
 
