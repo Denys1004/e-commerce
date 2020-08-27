@@ -28,4 +28,5 @@ urlpatterns = [
 
     path('qty_of_cart_items', views.qty_of_cart_items, name="qty_of_cart_items"),
     path('clear_cart', views.clear_cart, name="clear_cart"),
+    path('profile', views.profile, name='profile')
 ]

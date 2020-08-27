@@ -290,3 +290,9 @@ def clear_cart(request):
     request.session['cart_id'] = new_cart.id
     return redirect('/cart')
 
+def profile(request):
+    context = {
+        'current_user': User.objects.get(id = request.session['user_id'])
+    }
+    return render(request, 'profile.html', context)
+
