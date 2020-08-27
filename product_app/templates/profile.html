@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="any_page_container">
+    <div class="container_header">
+        <h3 class="text-center">Welcome to your profle, {{current_user}}</h3>
+        <div class="row mt-5 ">
+          <div class="col-md-6 mx-auto border border-dark p-5 text-center">
+            <span class="border border-dark rounded-circle p-3 display-4 text-danger">
+              {{current_user.first_name.0}}{{current_user.last_name.0}}
+            </span>
+            <p class="mt-4">First name: {{current_user.first_name}}</p>
+            <p>Last name: {{current_user.last_name}}</p>
+            <p>Email address: {{current_user.email}}</p>
+            <p>Member since: {{current_user.created_at}}</p>
+          </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+{% endblock content %}
