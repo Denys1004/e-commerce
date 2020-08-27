@@ -20,9 +20,6 @@
         <div class="cart_table_headrer table_headrer_5">
             <p>Total</p>
         </div>
-        <div class="cart_table_headrer table_headrer_5">
-            <p>Action</p>
-        </div>
     </div>
 
 
@@ -60,13 +57,10 @@
                     <option value="5">5</option>
                     <option value="6">6</option>
                 </select>
-                <input id="update" type="submit" value="update">
             </form>
         </div>
         <div class="cart_table_headrer table_headrer_3">
             <p>${{ product.total_item_cost|floatformat:2 }}</p>
-        </div>
-        <div class="cart_table_headrer table_headrer_3"><a href="/delete_cart_item/{{product.id}}">Remove</a>
         </div>
 
     </div>
