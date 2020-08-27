@@ -108,6 +108,20 @@ $("body").on('click','.category_link',(function(e) {
     
 }))
 
+//add to cart
+$("body").on('click','.add_to_cart',(function(e) {
+    e.preventDefault()
+    var product_id=$(this).attr('product_id')
+    $.ajax({
+        url:`/add_to_cart/${product_id}`,
+        method:'GET',
+        success:(response)=>{
+            $('#cart_number').html(response)
+        }
+    })
+    
+}))
+
 
 // Carousel
 $('.carousel').carousel({

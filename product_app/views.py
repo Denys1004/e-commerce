@@ -138,7 +138,7 @@ def add_to_cart(request, id):
         cart.total_cost += product.price
         cart.total_quantity+=1
         cart.save()
-        return redirect('/store')
+        return HttpResponse(cart.total_quantity)
 
 
 
