@@ -42,43 +42,8 @@
                             <div class="line3"></div>
                         </div>
                     </div>
-
-                    <div class="logo_container">
-                        <a href="/store"><img src="{% static 'images/logo_red.png' %}" alt="logo"></a>
-                    </div>
-
-                    <ul class="nav-links">
-                        <div class="nav_logo_container">
-                            <a href="/store"><img class="logo_img" src="{% static 'images/logo_red.png' %}" alt="logo"></a>
-                        </div>
+                    {% include 'sidebar.html' %}
                     
-                        <li><a href="/store">Home</a></li>
-
-                        <li><a href="/store">Categories</a>
-                            <ul id='categories'> 
-                                <li><a href="/">T-shirts(0)</a></li>
-                                <li><a href="/">Shoes(0)</a></li>
-                                <li><a href="/">Cups(0)</a></li>
-                                
-                                <div id="slideToggle">
-                                    <div id="hidden_categories">
-                                        <li><a href="/">Fruits(0)</a></li>
-                                        <li><a href="/">Socks(0)</a></li>
-                                        <li><a href="/">Hats(0)</a></li>
-                                        <li><a href="/">Pants(0)</a></li>
-                                    </div>
-                                    <p id="show_all">Show all</p>
-                                </div>
-                            </ul>
-                        </li>
-
-                        <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
-                        {% if request.session.user_id %}
-                        <li><a href="/login/logout/">Sign Out</a></li>
-                        {% else %}
-                        <li><a href="/login/login/">Sign in</a></li>
-                        {% endif %}
-                    </ul>
                     <div class="right">
                         <div class="sign_in">
                             {% if request.session.user_id %}

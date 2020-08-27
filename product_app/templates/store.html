@@ -35,38 +35,39 @@
                     <a href='/item/{{product.id}}'><img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alternative_src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.0.name }}" alt="image"></a>
                 </div>
             {% endfor %}
-        </div>
-        <div class="pagination_container">     
-            <ul class="pagination">
-                {% if products.has_previous %}
-                    <li class="page-item">
-                        <a href="?page=1" class="page-link text-dark "><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-                    </li>
-                    <li class="page-item">
-                        <a href="?page={{ products.previous_page_number }}" class="page-link text-dark"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-                    </li>
-                {% endif %}
-                {% for num in products.paginator.page_range %}
-                    {% if products.number == num %}
-                    <li class="page-item">
-                        <a href="?page={{num}}" class="bg-dark text-white page-link">{{ num }}</a>
-                    </li>
-                    {% elif num > products.number|add:'-2' and num < products.number|add:'2' %}
-                       <li class="page-item mx-1">
-                        <a href="?page={{num}}" class="page-link text-dark">{{num}}</a>
-                       </li>
+            <div class="pagination_container">     
+                <ul class="pagination">
+                    {% if products.has_previous %}
+                        <li class="page-item">
+                            <a href="?page=1" class="page-link text-dark "><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="page-item">
+                            <a href="?page={{ products.previous_page_number }}" class="page-link text-dark"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                        </li>
                     {% endif %}
-                {% endfor %}
-                {% if products.has_next %}
-                 <li class="page-item mx-1">
-                    <a href="?page={{ products.next_page_number }}" class="page-link text-dark"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                 </li>
-                   <li class="page-item">
-                    <a href="?page={{ products.paginator.num_pages }}" class="page-link text-dark"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-                   </li>
-                {% endif %} 
-                </ul>
+                    {% for num in products.paginator.page_range %}
+                        {% if products.number == num %}
+                        <li class="page-item">
+                            <a href="?page={{num}}" class="bg-dark text-white page-link">{{ num }}</a>
+                        </li>
+                        {% elif num > products.number|add:'-2' and num < products.number|add:'2' %}
+                           <li class="page-item mx-1">
+                            <a href="?page={{num}}" class="page-link text-dark">{{num}}</a>
+                           </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if products.has_next %}
+                     <li class="page-item mx-1">
+                        <a href="?page={{ products.next_page_number }}" class="page-link text-dark"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                     </li>
+                       <li class="page-item">
+                        <a href="?page={{ products.paginator.num_pages }}" class="page-link text-dark"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                       </li>
+                    {% endif %} 
+                    </ul>
+            </div>
         </div>
+        
 
 
 
