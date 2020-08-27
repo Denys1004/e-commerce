@@ -6,8 +6,7 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
-    return redirect('/login/login')
-
+    return redirect('/store')
 
 def store(request):
     if 'user_id' in request.session:
@@ -110,6 +109,9 @@ def create_new_product(request):
         }
         return render(request, 'create_product.html', context)
     else:
+        print('*'*30)
+        print(request.POST.getlist('categories'))
+        print('*'*30)
         new_product = Product.objects.create_product(request.POST, request.FILES)
         return redirect('/store')
 
