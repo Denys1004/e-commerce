@@ -134,7 +134,7 @@ class CartItem(models.Model):
 
 class ShippingAddress(models.Model):
     user = models.ForeignKey('login_app.User', on_delete=models.CASCADE, null = True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null = True)
+    order = models.ForeignKey(Order, related_name='shipping_address', on_delete=models.CASCADE, null = True)
     address = models.CharField(max_length = 200)
     city = models.CharField(max_length = 200)
     state = models.CharField(max_length = 200)

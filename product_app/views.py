@@ -3,6 +3,10 @@ from product_app.models import *
 from django.contrib.auth.decorators import login_required
 from login_app.models import *
 from django.core.paginator import Paginator
+from django.urls import reverse
+
+import stripe
+stripe.api_key = "sk_test_51HKrLqAG7S0SBZ5Vzv38JaUu7fRpBfiSqc9vgXJQGBiVmisThWxM6HAfTH6BrLgTRzuvbBOPoo1E9hckGzb85Ax000ttUZYhkL"
 
 # Create your views here.
 def index(request):
@@ -278,11 +282,21 @@ def delete_cart_item(request, cart_item_id):
 
 
 def payment(request):
+    cur_user = User.objects.get(id = request.session['user_id'])
+    if request.method == 'POST':
+        Shipping_address = ShippingAddress.objects.create(
+            user = cur_user,
+            address = request.POST['address'],
+            city = request.POST['city'],
+            state = request.POST['state'],
+            zipcode = request.POST['zipcode'],
+        )
+
     return redirect('/payment_page')
 
 def payment_page(request):
     context = {
-        
+        'cur_user': User.objects.get(id = request.session['user_id'])
     }
     return render(request, 'payment.html', context)
 
@@ -311,8 +325,58 @@ def clear_cart(request):
     return redirect('/cart')
 
 def profile(request):
+    cur_user = User.objects.get(id = request.session['user_id'])
+    user_order = Order.objects.filter(user=cur_user)
+    print('*' * 30)
+    print(user_order)
     context = {
-        'current_user': User.objects.get(id = request.session['user_id'])
+        'current_user': cur_user,
     }
     return render(request, 'profile.html', context)
 
+def charge(request):
+    cur_user = User.objects.get(id = request.session['user_id'])
+    amount = float(cur_user.cart.total_cost)
+
+    if request.method == 'POST':
+
+        current_order =Order.objects.create(
+            user = cur_user,
+            total_cost = cur_user.cart.total_cost,
+            complete = True
+        )
+        shipping_address = ShippingAddress.objects.filter(user=cur_user).last()
+        print('shipping address ', shipping_address)
+        print('8' * 40)
+        print(current_order)
+        print('8' * 40)
+        shipping_address.order =  current_order
+        shipping_address.save()
+        customer = stripe.Customer.create(
+            email=request.POST['email'],
+            name=request.POST['name'],
+            source=request.POST['stripeToken']
+        )
+
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount = int(amount * 100),
+            currency='usd',
+            description='online transations'
+        )
+
+    return redirect(reverse('success', args=[amount]))
+
+def success(request, args):
+    cur_user =  User.objects.get(id=request.session['user_id'])
+    cart = cur_user.cart
+    new_cart = Cart.objects.create()
+    cur_user.cart = new_cart
+    cur_user.save()
+    cart.delete()
+    amount = args
+    context =  {
+        'amount': amount,
+        'cur_user': cur_user
+    }
+    return render(request, 'charges_success.html', context)
