@@ -29,5 +29,7 @@ urlpatterns = [
 
     path('qty_of_cart_items', views.qty_of_cart_items, name="qty_of_cart_items"),
     path('clear_cart', views.clear_cart, name="clear_cart"),
-    path('profile', views.profile, name='profile')
+    path('profile', views.profile, name='profile'),
+    path('charge', views.charge, name='charge'),
+    path('success/<str:args>',views.success, name='success' ),
 ]

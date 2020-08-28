@@ -1455,3 +1455,13 @@ footer .footer_container p {
   margin-right: 20px;
 }
 /*# sourceMappingURL=main.css.map */
+
+/* stripe payment form  styles */
+
+.StripeElement {
+  width: 98%;
+  padding: 8px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 3px;
+}
