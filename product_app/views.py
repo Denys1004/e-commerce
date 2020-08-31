@@ -118,6 +118,8 @@ def add_to_cart(request, id):
     cart = User.objects.get(id = request.session['user_id']).cart
     found_item = False
 
+    print('this is product ', product)
+
     all_cart_items = cart.cart_items.all()
     for item in all_cart_items:
         if item.product.id == product.id:
@@ -308,13 +310,19 @@ def clear_cart(request):
 
 def profile(request):
     cur_user = User.objects.get(id = request.session['user_id'])
-    user_order = Order.objects.filter(user=cur_user)
-    print('*' * 30)
-    print(user_order)
+    user_orders = Order.objects.filter(user=cur_user).order_by('-id')
     context = {
-        'current_user': cur_user,
+        'user_orders': user_orders,
+        'cur_user': cur_user,
+        'num_items_in_cart':cur_user.cart.total_quantity,
     }
     return render(request, 'profile.html', context)
+
+# delete order from the user orders history
+def delete_order(request, order_id):
+    order_to_delete = Order.objects.get(id=order_id)
+    order_to_delete.delete()
+    return redirect('/profile')
 
 def display_category(request, category_id):
     category=Category.objects.get(id=category_id)
@@ -342,10 +350,6 @@ def charge(request):
             complete = True
         )
         shipping_address = ShippingAddress.objects.filter(user=cur_user).last()
-        print('shipping address ', shipping_address)
-        print('8' * 40)
-        print(current_order)
-        print('8' * 40)
         shipping_address.order =  current_order
         shipping_address.save()
         customer = stripe.Customer.create(
@@ -369,7 +373,7 @@ def success(request, args):
     new_cart = Cart.objects.create()
     cur_user.cart = new_cart
     cur_user.save()
-    cart.delete()
+    # cart.delete()
     amount = args
     context =  {
         'amount': amount,
