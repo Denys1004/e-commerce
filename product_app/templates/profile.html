@@ -35,7 +35,7 @@
             <!-- all orders -->
             {% for order in user_orders%}
 
-            <div class="all_order mt-3 border border-dark p-3">
+            <div class="all_order mt-3 border border-dark p-1">
               <p class="font-weight-bold">Order Number: #{{order.id}}</p>
 
               <p>Ordered by: {{order.user.first_name}} {{order.user.last_name}}</p>
