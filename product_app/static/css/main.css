@@ -1457,11 +1457,14 @@ footer .footer_container p {
 /*# sourceMappingURL=main.css.map */
 
 /* stripe payment form  styles */
-
-.StripeElement {
-  width: 98%;
-  padding: 8px;
-  margin: 0 auto;
-  background-color: white;
-  border-radius: 3px;
+.profile_container {
+  font-size: 20px;
+}
+.profile_logo {
+  background-color: #1d1d1d;
+  width: 100px;
+  color: #fff;
+  text-align: center;
+  font-size:40px;
+  border-radius: 50%;
 }
