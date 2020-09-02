@@ -58,7 +58,7 @@ def item(request, id):
     cur_rating = product.average
     first_image = product.images.all()[1]
     additional_images = product.images.all().exclude(id=first_image.id)
-    popular_products = Product.objects.filter(average = 5)
+    popular_products = Product.objects.filter(average = 5)[:4]
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session['user_id'])
         context = {
@@ -233,8 +233,13 @@ def delete_review(request, product_id, review_id):
         product = Product.objects.get(id = product_id)
         product.count = product.count - 1
         product.stars = product.stars - review.stars
-        product.average = product.stars / product.count
-        product.save()
+        if product.count != 0:
+            product.average = product.stars / product.count
+            product.save()
+        else:
+            product.average = product.stars / 1
+            product.save()
+
     review.delete()
     return redirect(f'/item/{product_id}')
 
@@ -294,8 +299,14 @@ def clear_cart(request):
 
 def profile(request):
     context = {
-        'current_user': User.objects.get(id = request.session['user_id'])
+        'current_user': User.objects.get(id = request.session['user_id']),
+        'first_three_categories':Category.objects.all()[:3],
+        'additional_categories':Category.objects.all()[3:]
     }
+    if 'user_id' in request.session:
+        cur_user = User.objects.get(id = request.session["user_id"]) 
+        num_items_in_cart = cur_user.cart.total_quantity
+        context['num_items_in_cart']=num_items_in_cart
     return render(request, 'profile.html', context)
 
 def display_category(request, category_id):
