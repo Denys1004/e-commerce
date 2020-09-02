@@ -3,6 +3,10 @@ from product_app.models import *
 from django.contrib.auth.decorators import login_required
 from login_app.models import *
 from django.core.paginator import Paginator
+from django.urls import reverse
+
+import stripe
+stripe.api_key = "sk_test_51HKrLqAG7S0SBZ5Vzv38JaUu7fRpBfiSqc9vgXJQGBiVmisThWxM6HAfTH6BrLgTRzuvbBOPoo1E9hckGzb85Ax000ttUZYhkL"
 
 # Create your views here.
 def index(request):
@@ -113,6 +117,8 @@ def add_to_cart(request, id):
     product = Product.objects.get(id = id)
     cart = User.objects.get(id = request.session['user_id']).cart
     found_item = False
+
+    print('this is product ', product)
 
     all_cart_items = cart.cart_items.all()
     for item in all_cart_items:
@@ -265,11 +271,21 @@ def delete_cart_item(request, cart_item_id):
 
 
 def payment(request):
+    cur_user = User.objects.get(id = request.session['user_id'])
+    if request.method == 'POST':
+        Shipping_address = ShippingAddress.objects.create(
+            user = cur_user,
+            address = request.POST['address'],
+            city = request.POST['city'],
+            state = request.POST['state'],
+            zipcode = request.POST['zipcode'],
+        )
+
     return redirect('/payment_page')
 
 def payment_page(request):
     context = {
-        
+        'cur_user': User.objects.get(id = request.session['user_id'])
     }
     return render(request, 'payment.html', context)
 
@@ -298,16 +314,26 @@ def clear_cart(request):
     return redirect('/cart')
 
 def profile(request):
+    cur_user = User.objects.get(id = request.session['user_id'])
+    user_orders = Order.objects.filter(user=cur_user).order_by('-id')
     context = {
-        'current_user': User.objects.get(id = request.session['user_id']),
         'first_three_categories':Category.objects.all()[:3],
         'additional_categories':Category.objects.all()[3:]
+        'user_orders': user_orders,
+        'cur_user': cur_user,
+        'num_items_in_cart':cur_user.cart.total_quantity,
     }
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session["user_id"]) 
         num_items_in_cart = cur_user.cart.total_quantity
         context['num_items_in_cart']=num_items_in_cart
     return render(request, 'profile.html', context)
+
+# delete order from the user orders history
+def delete_order(request, order_id):
+    order_to_delete = Order.objects.get(id=order_id)
+    order_to_delete.delete()
+    return redirect('/profile')
 
 def display_category(request, category_id):
     category=Category.objects.get(id=category_id)
@@ -323,3 +349,45 @@ def display_category(request, category_id):
 
     return render(request, 'category_partial.html', context)
 
+def charge(request):
+    cur_user = User.objects.get(id = request.session['user_id'])
+    amount = float(cur_user.cart.total_cost)
+
+    if request.method == 'POST':
+
+        current_order =Order.objects.create(
+            user = cur_user,
+            total_cost = cur_user.cart.total_cost,
+            complete = True
+        )
+        shipping_address = ShippingAddress.objects.filter(user=cur_user).last()
+        shipping_address.order =  current_order
+        shipping_address.save()
+        customer = stripe.Customer.create(
+            email=request.POST['email'],
+            name=request.POST['name'],
+            source=request.POST['stripeToken']
+        )
+
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount = int(amount * 100),
+            currency='usd',
+            description='online transations'
+        )
+
+    return redirect(reverse('success', args=[amount]))
+
+def success(request, args):
+    cur_user =  User.objects.get(id=request.session['user_id'])
+    cart = cur_user.cart
+    new_cart = Cart.objects.create()
+    cur_user.cart = new_cart
+    cur_user.save()
+    # cart.delete()
+    amount = args
+    context =  {
+        'amount': amount,
+        'cur_user': cur_user
+    }
+    return render(request, 'charges_success.html', context)

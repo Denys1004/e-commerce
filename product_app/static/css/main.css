@@ -1460,3 +1460,16 @@ footer .footer_container p {
   margin-right: 20px;
 }
 /*# sourceMappingURL=main.css.map */
+
+/* stripe payment form  styles */
+.profile_container {
+  font-size: 20px;
+}
+.profile_logo {
+  background-color: #1d1d1d;
+  width: 100px;
+  color: #fff;
+  text-align: center;
+  font-size:40px;
+  border-radius: 50%;
+}
