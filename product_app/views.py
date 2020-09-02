@@ -318,10 +318,10 @@ def profile(request):
     user_orders = Order.objects.filter(user=cur_user).order_by('-id')
     context = {
         'first_three_categories':Category.objects.all()[:3],
-        'additional_categories':Category.objects.all()[3:]
+        'additional_categories':Category.objects.all()[3:],
         'user_orders': user_orders,
         'cur_user': cur_user,
-        'num_items_in_cart':cur_user.cart.total_quantity,
+        'num_items_in_cart':cur_user.cart.total_quantity
     }
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session["user_id"]) 
