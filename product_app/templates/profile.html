@@ -3,64 +3,122 @@
 {% block content %}
 
 <div class="any_page_container">
-    <div class="container_header">
-        <h3 class="text-center">Welcome to your profle, {{current_user}}</h3>
-        <div class="row mt-5 ">
-          <div class="col-md-6 mx-auto border border-dark p-5 text-center">
-            <span class="border border-dark rounded-circle p-3 display-4 text-danger">
-              {{current_user.first_name.0}}{{current_user.last_name.0}}
-            </span>
-            <p class="mt-4">First name: {{current_user.first_name}}</p>
-            <p>Last name: {{current_user.last_name}}</p>
-            <p>Email address: {{current_user.email}}</p>
-            <p>Member since: {{current_user.created_at}}</p>
+  <div class="container_header">
+    <h3 class="text-center">Welcome to your profle, {{cur_user}}</h3>
+  </div>
+
+    <div class="row mt-5 profile_container">
+
+      <div class="col-md-6">
+           <!-- bio and all orders -->
+        <div class="profile_logo p-3 text-monospace">
+          {{cur_user.first_name.0}}{{cur_user.last_name.0}}
+        </div>
+        <p class="mt-4">First name: {{cur_user.first_name}}</p>
+        <p>Last name: {{cur_user.last_name}}</p>
+        <p>Email address: {{cur_user.email}}</p>
+        <p>Member since: {{cur_user.created_at|date:"SHORT_DATE_FORMAT"}}</p>
+
+        <!-- all orders accordian button -->
+        <p><a data-toggle="collapse" href="#orders{{all}}" role="button" aria-expanded="false"
+            aria-controls="multiCollapseExample1" class="btn btn-info btn-sm mb-3"> <i class="fas fa-hand-point-down"></i>
+            All orders</a></p>
+
+        <!-- all orders body accoridan -->
+        <div class="collapse multi-collapse" id="orders{{all}}">
+          <div class="card card-body mt-3">
+            <div class="d-flex justify-content-between">
+              <h4>All your previous orders</h4>
+              <a href="">
+                <span>&#10005;</span></a>
+            </div>
+
+            <!-- all orders -->
+            {% for order in user_orders%}
+
+            <div class="all_order mt-3 border border-dark p-1">
+              <p class="font-weight-bold">Order Number: #{{order.id}}</p>
+
+              <p>Ordered by: {{order.user.first_name}} {{order.user.last_name}}</p>
+              <p>Total cost: ${{order.total_cost}}</p>
+              <p>Completed: <span class="bg-success text-white p-1">{{order.complete}}</span></p>
+              <p>Date ordered: {{order.created_at |date:"SHORT_DATE_FORMAT"}}</p>
+
+              <a data-toggle="collapse" href="#order{{order.id}}" role="button" aria-expanded="false"
+                aria-controls="multiCollapseExample1"> <i class="fas fa-hand-point-down"></i> Shipping address</a>
+              <p><a href="{% url 'delete_order' order.id%}" class="text-danger">Remove.</a></p>
+
+            </div>
+
+            <!-- all orders shipping address accordian -->
+            <div class="collapse multi-collapse" id="order{{order.id}}">
+
+              <div class="card card-body mt-3 bg-light">
+                <div class="d-flex justify-content-between">
+                  <h4 class="mb-3">Order number #{{order.id}} shipping address</h4>
+                  <a href="">
+                    <span>&#10005;</span></a>
+                </div>
+
+                {% for address in order.shipping_address.all%}
+                  <p><span class="text-primary">Street Address: </span>
+                    {{address.address}}</p>
+                  <p><span class="text-primary">City: </span>
+                    {{address.city}}</p>
+                  <p><span class="text-primary">State: </span>
+                    {{address.state}}</p>
+                  <p><span class="text-primary">Zipe Code: </span> {{address.zipcode}}</p>
+              {% endfor %}
+              </div>
+
+            </div>
+            {% endfor %}
           </div>
         </div>
-        <table class="table mt-5">
-          <thead class="thead-dark">
-            <th>Order Number</th>
-            <th>Total cost</th>
-            <th>Completed</th>
-            <th>Date ordered</th>
-            <th>Shipping address</th>
-          </thead>
-          <tbody>
-            {% for order in current_user.orders.all%}
-              {% for address in order.shipping_address.all %}
-              <tr>
-                <td>{{order.id}}</td>
-                <td>${{order.total_cost}}</td>
-                <td>{{order.complete}}</td>
-                <td>{{order.created_at}}</td>
-                <td> <a class="btn btn-primary" data-toggle="collapse" href="#order{{order.id}}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Order Shipping Address</a></td>
-              </tr>
+      </div>
 
-              <div class="collapse multi-collapse" id="order{{order.id}}">
-                <div class="card card-body mt-3">
-                  <h4>Order Number #{{order.id}} Shipping Address</h4>
-                  <ul class="list-group">
-                    <li class="list-group-item"><span class="text-primary">Street Address: </span> {{address.address}}</li>
-                    <li class="list-group-item"><span class="text-primary">City: </span>  {{address.city}}</li>
-                    <li class="list-group-item"><span class="text-primary">State: </span>  {{address.state}}</li>
-                    <li class="list-group-item"><span class="text-primary">Zipe Code: </span>  {{address.zipcode}}</li>
-                    <li class="list-group-item"></li>
-                  </ul>
-                </div>
+      <div class="col-md-6 mx-auto col-md-25 border border-dark">
+           <!-- last order -->
+           <div class="last_order mt-4">
+
+            <h3>Last order!</h3>
+            <p>Order Number: #{{user_orders.first.id}}</p>
+            <p>Ordered by: {{user_orders.first.user.first_name}} {{user_orders.first.user.last_name}}</p>
+            <p>Total cost: ${{user_orders.first.total_cost}}</p>
+            <p>Completed: <span class="bg-success text-white p-1">{{user_orders.first.complete}}</span></p>
+            <p>Date ordered: {{user_orders.first.created_at |date:"SHORT_DATE_FORMAT"}}</p>
+  
+            <a data-toggle="collapse" href="#order{{user_orders.first.id}}" role="button" aria-expanded="false"
+              aria-controls="multiCollapseExample1"> <i class="fas fa-hand-point-down"></i> Shipping address</a>
+            <p><a href="{% url 'delete_order' user_orders.first.id%}" class="text-danger">Remove.</a></p>
+  
+          <!-- last order shipping address body accordian -->
+          <div class="collapse multi-collapse bg-light" id="order{{user_orders.first.id}}">
+            <div class="card card-body mt-3">
+              <div class="d-flex justify-content-between">
+                <h4 class="mb-3">Order number #{{user_orders.first.id}} shipping address</h4>
+                <a href="">
+                  <span>&#10005;</span></a>
               </div>
-              
-              {% endfor %}
-            {% endfor %}
-          </tbody>
-        </table>
-
-
+  
+              <p><span class="text-primary">Street Address: </span>
+                {{user_orders.first.shipping_address.all.first.address}}</p>
+  
+              <p><span class="text-primary">City: </span>
+                {{user_orders.first.shipping_address.all.first.city}}</p>
+  
+              <p><span class="text-primary">State: </span>
+                {{user_orders.first.shipping_address.all.first.state}}</p>
+  
+              <p><span class="text-primary">Zipe Code: </span> {{user_orders.first.shipping_address.all.first.zipcode}}
+              </p>
+            </div>
           </div>
-         
+          </div>
+      </div>
     </div>
-
-
-
 
 </div>
 
 {% endblock content %}
+
