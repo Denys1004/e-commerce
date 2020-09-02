@@ -17,7 +17,8 @@
         </div>
 
         <div class="product_container">
-            {% for product in products %}
+            <div class="above_paginator">
+                {% for product in products %}
                 <div class="product">
                     <div class="product_description">
                         <div class="product_header">
@@ -35,6 +36,7 @@
                     <a href='/item/{{product.id}}'><img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alternative_src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.0.name }}" alt="image"></a>
                 </div>
             {% endfor %}
+            </div>
             <div class="pagination_container">     
                 <ul class="pagination">
                     {% if products.has_previous %}
