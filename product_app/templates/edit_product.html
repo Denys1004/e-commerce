@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group">
                     <label for="product_price" class="red">Price:</label>
-                    <input type="text" class="form-control" name="product_price" value="{{needed_product.price}}">
+                    <input type="text" class="form-control" name="product_price" value="{{needed_product.price|floatformat:2}}">
                 </div>
                 <label for="editor1" class="red">Description:</label>
                 <textarea name="editor1" class="form-control post_content">{{needed_product.description}}</textarea>

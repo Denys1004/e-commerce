@@ -31,12 +31,12 @@
                 <div class="table_headrer table_headrer_2"><p>{{ product.name }}</p></div>
                 <div class="table_headrer table_headrer_2">
                     {% for category in product.categories.all %}
-                    <small>{{category.name}} <span class="red">|</span></small>
+                    <small>{{category.name}} {% if not forloop.last %}<span class="red">|</span>{% endif %}</small>
                     {% endfor %}
 
                 </div>
                 <div class="table_headrer table_headrer_3"><p>{{ product.average }}</p></div>
-                <div class="table_headrer table_headrer_3"><p>${{ product.price }}</p></div>
+                <div class="table_headrer table_headrer_3"><p>${{ product.price|floatformat:2 }}</p></div>
                 <div class="table_headrer table_headrer_4">
                     <div class="table_headrer table_headrer_4">
                         <div class="action">                                

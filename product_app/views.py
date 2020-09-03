@@ -13,8 +13,8 @@ def index(request):
     return redirect('/store')
 
 def store(request):
-    products = Product.objects.all()								
-    paginator = Paginator(products, 6)									
+    products = Product.objects.all().order_by('-created_at')								
+    paginator = Paginator(products, 9)									
     page = request.GET.get('page')													
     products = paginator.get_page(page)			
     context = {
@@ -346,7 +346,7 @@ def display_category(request, category_id):
     category=Category.objects.get(id=category_id)
     category_products=category.products.all()
     
-    paginator = Paginator(category_products, 6)									
+    paginator = Paginator(category_products, 24)									
     page = request.GET.get('page')													
     category_products = paginator.get_page(page)			
     

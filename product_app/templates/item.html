@@ -36,7 +36,7 @@
                 <div class="product_header">
                     <div>
                         <h1 class='red'>{{product.name}}</h1>
-                        <p>Price: ${{product.price }}</p>
+                        <p>Price: ${{product.price|floatformat:2 }}</p>
                     </div>
                     {% if request.session.user_id != null %}
                     <a href="{% url 'add_to_cart' product.id %}" product_id={{product.id}} class="my_btn add_to_cart">Add To Cart</a>
