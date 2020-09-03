@@ -4,9 +4,9 @@ from django.contrib.auth.decorators import login_required
 from login_app.models import *
 from django.core.paginator import Paginator
 from django.urls import reverse
-
+from . import key
 import stripe
-stripe.api_key = "sk_test_51HKrLqAG7S0SBZ5Vzv38JaUu7fRpBfiSqc9vgXJQGBiVmisThWxM6HAfTH6BrLgTRzuvbBOPoo1E9hckGzb85Ax000ttUZYhkL"
+stripe.api_key = key.stripe_api
 
 # Create your views here.
 def index(request):
@@ -137,7 +137,6 @@ def add_to_cart(request, id):
         cart.total_quantity+=1
         cart.save()
         item.save()
-        return redirect('/store')
     else:
         cart_item = CartItem.objects.create(
             product = product,
@@ -148,10 +147,7 @@ def add_to_cart(request, id):
         cart.total_cost += product.price
         cart.total_quantity+=1
         cart.save()
-        return HttpResponse(cart.total_quantity)
-
-
-
+    return HttpResponse(cart.total_quantity)
 
 def edit(request, product_id):
     if request.method == "GET":
@@ -166,7 +162,6 @@ def edit(request, product_id):
     else:
         updated_product = Product.objects.update_product(request.POST, request.FILES, product_id)
         return redirect(f'/edit/{product_id}')
-
 
 # update quantity
 def update_quantity(request, product_id):
@@ -199,8 +194,6 @@ def update_quantity(request, product_id):
 
     return render(request, 'cart_partial.html', context)
 
-
-
 def review(request, product_id):
     product = Product.objects.get(id = product_id)
     poster = User.objects.get(id = request.session['user_id'])
@@ -214,7 +207,6 @@ def review(request, product_id):
     else:
         Review.objects.create(review = request.POST['review'], poster=poster, product = product)
         return redirect(f'/item/{product.id}')
-
 
 def search_product(request):
     products = Product.objects.all()
@@ -240,8 +232,6 @@ def search_product(request):
             }
     return render(request, 'search_result.html', context)
 
-
-
 def delete_review(request, product_id, review_id):
     review = Review.objects.get(id = review_id)
     if review.stars:
@@ -258,13 +248,16 @@ def delete_review(request, product_id, review_id):
     review.delete()
     return redirect(f'/item/{product_id}')
 
-
 def delete_photo(request, product_id, image_id):
     product = Product.objects.get(id = product_id)
     image = Image.objects.get(id = image_id)
     image.delete()
-    return redirect(f'/edit/{product_id}')
 
+    context = {
+            'needed_product': Product.objects.get(id = product_id),
+        }
+
+    return render(request, 'product_image_partial.html',context)
 
 def delete_cart_item(request, cart_item_id):
     cart_item = CartItem.objects.get(id = cart_item_id)
@@ -275,9 +268,6 @@ def delete_cart_item(request, cart_item_id):
     cart.save()
     cart_item.delete()
     return redirect('/cart')
-
-
-
 
 def payment(request):
     cur_user = User.objects.get(id = request.session['user_id'])
@@ -305,13 +295,10 @@ def delete(request, id):
     product.delete()
     return redirect('/all_products')
 
-
-
 def qty_of_cart_items(request):
     cart = Cart.objects.get(id = request.session['cart_id'])
     items = cart.total_quantity
     return HttpResponse(f'{items}') 
-
 
 def clear_cart(request):
     cart = Cart.objects.get(id = request.session['cart_id'])
@@ -404,3 +391,16 @@ def success(request, args):
         'page': 'charges_success'
     }
     return render(request, 'charges_success.html', context)
+
+def remove_category(request, category_id, product_id):
+    category=Category.objects.get(id=category_id)
+    product=Product.objects.get(id=product_id)
+
+    product.categories.remove(category)
+
+    cur_user = User.objects.get(id = request.session['user_id'])
+    context = {
+        'needed_product': Product.objects.get(id = product_id),
+    }
+
+    return render(request, 'product_category_partial.html', context)

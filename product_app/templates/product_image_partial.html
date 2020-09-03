@@ -1,0 +1,12 @@
+{% for image in needed_product.images.all%}
+    <div class="tz-gallery">
+        <div class="main_photo lightbox photo_list">
+            <div class="delete_photo">
+                    <a id= 'delete_product_photo' href="/delete_photo/{{needed_product.id}}/{{image.id}}"><ion-icon name="remove-circle"></ion-icon></a>
+            </div>
+            <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ image.name }}">
+            <img src="{{ MEDIA_URL }}/product_pictures/{{ image.name }}" alt="image">
+            </a>
+        </div>
+    </div>
+{% endfor %}

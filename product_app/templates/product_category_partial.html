@@ -1,0 +1,5 @@
+{% for pr_category in needed_product.categories.all %}
+    <div class="display_inline2">
+        <p class="mr-4">{{pr_category.name}} <a id='remove_category' href="/remove_category/{{pr_category.id}}/{{needed_product.id}}"><ion-icon name="remove-circle"></ion-icon></a></p>
+    </div>
+{% endfor %}

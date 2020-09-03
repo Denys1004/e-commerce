@@ -66,10 +66,12 @@
             <div id="nav_botton">
                 <ul> 
                     <li><a href='/store'>Store</a></li>
+                    <li><a href="#">About Us</a></li>
                     {% if request.session.user_id != null %}
                     <li><a href="{% url 'create_new_product' %}">Create Product</a></li>
                     <li><a href="{% url 'all_products' %}">All Products</a></li>
                     {% endif %}
+                    <li><a href="{% url 'profile' %}">My Profile</a></li>
                 </ul>
             </div>
         </div>

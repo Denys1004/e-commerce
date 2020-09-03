@@ -32,5 +32,6 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('charge', views.charge, name='charge'),
     path('success/<str:args>',views.success, name='success' ),
-    path('delete_order/<int:order_id>', views.delete_order, name='delete_order')
+    path('delete_order/<int:order_id>', views.delete_order, name='delete_order'),
+    path('remove_category/<int:category_id>/<int:product_id>', views.remove_category)
 ]

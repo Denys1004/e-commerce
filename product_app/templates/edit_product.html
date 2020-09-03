@@ -28,7 +28,7 @@
                     <div class="tz-gallery">
                         <div class="main_photo lightbox photo_list">
                             <div class="delete_photo">
-                                <a href="/delete_photo/{{needed_product.id}}/{{image.id}}"><ion-icon name="remove-circle"></ion-icon></a>
+                                <a id='delete_product_photo' href="/delete_photo/{{needed_product.id}}/{{image.id}}"><ion-icon name="remove-circle"></ion-icon></a>
                             </div>
                             <a class="lightbox" href="{{ MEDIA_URL }}/product_pictures/{{ image.name }}">
                                 <img src="{{ MEDIA_URL }}/product_pictures/{{ image.name }}" alt="image">
@@ -43,11 +43,13 @@
                 <br>
                 <br>
                 <p>Categories:</p>
-                {% for pr_category in needed_product.categories.all %}
-                <div class="display_inline2">
-                    <p>{{pr_category.name}} <span class="red">|</span></p>
+                <div id="product_categories">
+                    {% for pr_category in needed_product.categories.all %}
+                    <div class="display_inline2">
+                        <p class="mr-4">{{pr_category.name}} <a id='remove_category' href="/remove_category/{{pr_category.id}}/{{needed_product.id}}"><ion-icon name="remove-circle"></ion-icon></a></p>
                 </div>
                 {% endfor %}
+                </div>
                 <br>
                 <br>
                 <p class="red">Choose an existing category:</p>

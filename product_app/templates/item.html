@@ -39,7 +39,7 @@
                         <p>Price: ${{product.price }}</p>
                     </div>
                     {% if request.session.user_id != null %}
-                    <a href="{% url 'add_to_cart' product.id %}" class="my_btn">Add To Cart</a>
+                    <a href="{% url 'add_to_cart' product.id %}" product_id={{product.id}} class="my_btn add_to_cart">Add To Cart</a>
                     {% else%}
                     <a href="{% url 'login' 'mess' %}" class="my_btn">Add To Cart</a>
                     {% endif %}

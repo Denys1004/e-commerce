@@ -1271,6 +1271,10 @@ footer .footer_container p {
   display: inline-block;
 }
 
+.display_inline2 p ion-icon {
+  color: red;
+}
+
 .total_cart_info {
   padding: 20px;
 }
@@ -1476,19 +1480,5 @@ footer .footer_container p {
   width: 80px;
   height: 80px;
   margin-right: 20px;
-}
-/*# sourceMappingURL=main.css.map */
-
-/* stripe payment form  styles */
-.profile_container {
-  font-size: 20px;
-}
-.profile_logo {
-  background-color: #1d1d1d;
-  width: 100px;
-  color: #fff;
-  text-align: center;
-  font-size:40px;
-  border-radius: 50%;
 }
 /*# sourceMappingURL=main.css.map */

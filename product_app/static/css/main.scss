@@ -267,6 +267,11 @@ footer{
 
 .display_inline2{
     display: inline-block;
+    p{
+        ion-icon{
+            color: red;
+        }
+    }
 }
 
 
