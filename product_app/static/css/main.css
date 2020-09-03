@@ -878,7 +878,7 @@ body {
   display: block;
   font-size: 30px;
   color: #930303;
-  top: 0;
+  top: 10px;
   opacity: 0;
   -webkit-transition: .3s;
   transition: .3s;
@@ -1032,6 +1032,7 @@ body {
 
 .popular_items .popular_items_container .popular_item_description h3 {
   margin-bottom: -2px;
+  margin-top: 10px;
 }
 
 .popular_items .popular_items_container .popular_item_description .stars ion-icon {
@@ -1480,5 +1481,38 @@ footer .footer_container p {
   width: 80px;
   height: 80px;
   margin-right: 20px;
+}
+
+/* stripe payment form  styles */
+.profile_container {
+  font-size: 20px;
+}
+
+.profile_logo {
+  background-color: #1d1d1d;
+  width: 118px;
+  height: 118px;
+  padding: 0 0 0 0;
+  color: #fff;
+  text-align: center;
+  font-size: 59px;
+  border-radius: 50%;
+}
+
+.profile_header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+.profile_header .logo_descr {
+  text-align: right;
 }
 /*# sourceMappingURL=main.css.map */

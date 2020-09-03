@@ -314,11 +314,18 @@ def profile(request):
     cur_user = User.objects.get(id = request.session['user_id'])
     user_orders = Order.objects.filter(user=cur_user).order_by('-id')
     context = {
-        'user_orders': user_orders,
         'cur_user': cur_user,
         'num_items_in_cart':cur_user.cart.total_quantity,
         'page': 'profile'
     }
+    if len(user_orders)!= 0:
+        last_order = user_orders.first()
+        context['last_order']= last_order
+        all_user_orders = user_orders.exclude(id = last_order.id)
+        if len(all_user_orders) == 0:
+            all_user_orders=None
+        context['all_user_orders']= all_user_orders
+
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session["user_id"]) 
         num_items_in_cart = cur_user.cart.total_quantity

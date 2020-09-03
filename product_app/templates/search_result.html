@@ -13,49 +13,29 @@
                 <div class="table_headrer table_headrer_4"><p>Action</p></div>
             </div>
 
-            {% for product in searched_query %}
-            <div class="table_row_body">
-                <div class="table_headrer table_headrer_1">
-                    <div class="main_photo">
-                        <a href="/item/{{product.id}}">
-                            <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
-                        </a>
-                    </div>
-                </div>
 
-                <div class="table_headrer table_headrer_2"><p>{{ product.name }}</p></div>
-
-                <div class="table_headrer table_headrer_3"><p>${{ product.price }}</p></div>
-                <div class="table_headrer table_headrer_4">
-                    <div class="table_headrer table_headrer_4">
-                        <a href="{% url 'add_to_cart' product.id %}" class="red">Add To Cart</a>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            {% endfor %}
 
             {% for category in searched_category %}
-            {% for product in category.products.all %}
-            <div class="table_row_body">
-                <div class="table_headrer table_headrer_1">
-                    <div class="main_photo">
-                        <a href="/item/{{product.id}}">
-                            <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
-                        </a>
+                {% for product in category.products.all %}
+                <div class="table_row_body">
+                    <div class="table_headrer table_headrer_1">
+                        <div class="main_photo">
+                            <a href="/item/{{product.id}}">
+                                <img src="{{ MEDIA_URL }}/product_pictures/{{ product.images.all.1.name }}" alt="image">
+                            </a>
+                        </div>
                     </div>
+                    <div class="table_headrer table_headrer_2"><p><a href="/item/{{product.id}}">{{ product.name }}</a>
+                    </p>
+                    </div>
+                    <div class="table_headrer table_headrer_3"><p>${{product.price}}</p></div>
+                    <div class="table_headrer table_headrer_4">
+                        <a href="{% url 'add_to_cart' product.id %}" product_id={{product.id}} class="add_to_cart red">Add To Cart</a>
+                    </div>
+            
                 </div>
-                <div class="table_headrer table_headrer_2"><p><a href="/item/{{product.id}}">{{ product.name }}</a>
-                </p>
-                </div>
-                <div class="table_headrer table_headrer_3"><p>${{product.price}}</p></div>
-                <div class="table_headrer table_headrer_4">
-                    <a href="{% url 'add_to_cart' product.id %}" class="red">Add To Cart</a>
-                </div>
-           
-            </div>
-            <hr>
-            {% endfor %}
+                <hr>
+                {% endfor %}
             {% endfor %}
     </div>
 {% endblock content %} 

@@ -319,5 +319,29 @@ footer{
 }
 
 
+/* stripe payment form  styles */
+.profile_container {  
+    font-size: 20px;
+}
+.profile_logo {  
+    background-color: #1d1d1d;  
+    width: 118px;
+    height: 118px;
+    padding: 0 0 0 0;
+    color: #fff;  
+    text-align: center;  
+    font-size:59px;  
+    border-radius: 50%;
+}
 
+
+.profile_header{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    .logo_descr{
+        text-align: right;
+    }
+}
 
