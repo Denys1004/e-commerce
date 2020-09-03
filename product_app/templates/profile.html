@@ -40,7 +40,7 @@
               <p class="font-weight-bold">Order Number: #{{order.id}}</p>
 
               <p>Ordered by: {{order.user.first_name}} {{order.user.last_name}}</p>
-              <p>Total cost: ${{order.total_cost}}</p>
+              <p>Total cost: ${{order.total_cost|floatformat:2}}</p>
               <p>Completed: <span class="bg-success text-white p-1">{{order.complete}}</span></p>
               <p>Date ordered: {{order.created_at |date:"SHORT_DATE_FORMAT"}}</p>
 
