@@ -332,8 +332,12 @@ def profile(request):
 # delete order from the user orders history
 def delete_order(request, order_id):
     order_to_delete = Order.objects.get(id=order_id)
-    order_to_delete.delete()
-    return redirect('/profile')
+    if order_to_delete:
+        order_to_delete.delete()
+        return redirect('/profile')
+    else:
+        return redirect('/profile')
+    
 
 def display_category(request, category_id):
     category=Category.objects.get(id=category_id)
