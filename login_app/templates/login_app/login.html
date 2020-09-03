@@ -14,14 +14,21 @@
 <body>
     <div class="login_page_container">
         <h3>Login</h3>
-        {% if messages %}                                                                      				 	
-        <ul class="messages">                                           								
-            {% for message in messages %}                                       							
-                <li class="errors">{{ message }}</li>       									
-            {% endfor %}                                                								
-        </ul>                                                      									
+        {{ messages.tags }}
+        {% if messages %}   
+            {% if message.success %}  
+                <ul class="messages">
+                    <li class="success">{{ message }}</li> 
+                </ul>
+            {% else %}                                                        				 	
+                <ul class="messages">                                           								
+                    {% for message in messages %}                                       							
+                        <li class="errors">{{ message }}</li>       									   									
+                    {% endfor %}                                                								
+                </ul>  
+            {% endif %}                                                     									
         {% endif %} 
-        <form action="{% url 'login' %}" method="post">
+        <form action="{% url 'login' 'log' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="email">Email:</label>

@@ -20,7 +20,8 @@ def store(request):
     context = {
         'products' : products,
         'first_three_categories':Category.objects.all()[:3],
-        'additional_categories':Category.objects.all()[3:]
+        'additional_categories':Category.objects.all()[3:],
+        'page': 'store'
     }
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session["user_id"]) 
@@ -39,7 +40,8 @@ def cart(request):
         print('PRICE: ', item.item_cost)
     context = {
         'num_items_in_cart':cur_user.cart.total_quantity,
-        'cur_user':cur_user
+        'cur_user':cur_user,
+        'page': 'cart'
     }
     return render(request, 'cart.html', context)
 
@@ -50,7 +52,8 @@ def checkout(request):
     cur_user = User.objects.get(id = request.session['user_id'])
     context = {
         'num_items_in_cart':cur_user.cart.total_quantity,
-        'cur_user':cur_user
+        'cur_user':cur_user,
+        'page': 'checkout'
     }
     return render(request, 'checkout.html', context)
 
@@ -90,8 +93,11 @@ def item(request, id):
 
 def create_new_product(request):
     if request.method == "GET":
+        cur_user = User.objects.get(id = request.session["user_id"]) 
         context={
-            'catergories':Category.objects.all()
+            'catergories':Category.objects.all(),
+            'page': 'create_product',
+            'num_items_in_cart': cur_user.cart.total_quantity
         }
         return render(request, 'create_product.html', context)
     else:
@@ -104,7 +110,8 @@ def all_products(request):
     cur_user = User.objects.get(id = request.session['user_id'])
     context = {
         'all_products':Product.objects.all(),
-        'num_items_in_cart':cur_user.cart.total_quantity
+        'num_items_in_cart':cur_user.cart.total_quantity,
+        'page': 'all_products'
     }
     return render(request, 'all_products.html', context)
 
@@ -148,9 +155,12 @@ def add_to_cart(request, id):
 
 def edit(request, product_id):
     if request.method == "GET":
+        cur_user = User.objects.get(id = request.session['user_id'])
         context = {
             'needed_product': Product.objects.get(id = product_id),
-            'catergories':Category.objects.all()
+            'catergories':Category.objects.all(),
+            'page': 'edit_product',
+            'num_items_in_cart':cur_user.cart.total_quantity
         }
         return render(request, 'edit_product.html', context)
     else:
@@ -225,7 +235,8 @@ def search_product(request):
         if 'user_id' not in request.session:
             context = {
                 'searched_query': searched_query,
-                'searched_category': searched_category
+                'searched_category': searched_category,
+                'page': 'search_result'
             }
     return render(request, 'search_result.html', context)
 
@@ -283,7 +294,8 @@ def payment(request):
 
 def payment_page(request):
     context = {
-        'cur_user': User.objects.get(id = request.session['user_id'])
+        'cur_user': User.objects.get(id = request.session['user_id']),
+        'page': 'payment'
     }
     return render(request, 'payment.html', context)
 
@@ -315,11 +327,10 @@ def profile(request):
     cur_user = User.objects.get(id = request.session['user_id'])
     user_orders = Order.objects.filter(user=cur_user).order_by('-id')
     context = {
-        'first_three_categories':Category.objects.all()[:3],
-        'additional_categories':Category.objects.all()[3:],
         'user_orders': user_orders,
         'cur_user': cur_user,
-        'num_items_in_cart':cur_user.cart.total_quantity
+        'num_items_in_cart':cur_user.cart.total_quantity,
+        'page': 'profile'
     }
     if 'user_id' in request.session:
         cur_user = User.objects.get(id = request.session["user_id"]) 
@@ -386,10 +397,10 @@ def success(request, args):
     new_cart = Cart.objects.create()
     cur_user.cart = new_cart
     cur_user.save()
-    # cart.delete()
     amount = args
     context =  {
         'amount': amount,
-        'cur_user': cur_user
+        'cur_user': cur_user,
+        'page': 'charges_success'
     }
     return render(request, 'charges_success.html', context)
