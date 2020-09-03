@@ -51,6 +51,15 @@ p {
   text-align: center;
 }
 
+.form-group {
+  margin-bottom: 0;
+}
+
+label {
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
 nav {
   background-color: #1d1d1d;
   padding: 0 40px;
@@ -445,7 +454,7 @@ body {
 }
 
 .pagination_container .pagination a {
-  padding: 1.4px 18px;
+  padding: 6px 20px 3px 20px;
   font-size: 19px;
   font-weight: bold;
 }
@@ -1253,6 +1262,15 @@ footer .footer_container p {
   margin: 0;
 }
 
+.display_inline {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.display_inline2 {
+  display: inline-block;
+}
+
 .total_cart_info {
   padding: 20px;
 }
@@ -1473,3 +1491,4 @@ footer .footer_container p {
   font-size:40px;
   border-radius: 50%;
 }
+/*# sourceMappingURL=main.css.map */

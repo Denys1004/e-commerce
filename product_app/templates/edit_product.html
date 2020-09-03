@@ -12,17 +12,17 @@
             <form class="form-group" action="/edit/{{needed_product.id}}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="product_name">Name:</label>
+                    <label for="product_name" class="red">Name:</label>
                     <input type="text" class="form-control" name="product_name" value="{{needed_product.name}}">
                 </div>
                 <div class="form-group">
-                    <label for="product_price">Price:</label>
+                    <label for="product_price" class="red">Price:</label>
                     <input type="text" class="form-control" name="product_price" value="{{needed_product.price}}">
                 </div>
-
+                <label for="editor1" class="red">Description:</label>
                 <textarea name="editor1" class="form-control post_content">{{needed_product.description}}</textarea>
                 <br>
-                <small>Existing photo:</small>
+                <p class="red">Existing photo:</p>
                 <div class="cur_product_images">
                     {% for image in needed_product.images.all%}
                     <div class="tz-gallery">
@@ -41,6 +41,31 @@
                 <small>Add photos:</small>
                 <input type="file" name="product_image"  multiple>
                 <br>
+                <br>
+                <p>Categories:</p>
+                {% for pr_category in needed_product.categories.all %}
+                <div class="display_inline2">
+                    <p>{{pr_category.name}} <span class="red">|</span></p>
+                </div>
+                {% endfor %}
+                <br>
+                <br>
+                <p class="red">Choose an existing category:</p>
+                <div class="form-group">
+                    {% for category in catergories %}
+                        <div class="display_inline">
+                            <input type="checkbox" id="{{category.id}}" name="categories" value="{{category.id}}">
+                            <label for="{{category.id}}"> {{category.name}}</label>  
+                        </div>
+                    {% endfor %}
+                </div>
+
+        
+                <div class="form-group">
+                    <input type="text" class="form-control" name="new_category" placeholder="or Create a new Category">
+                </div>
+
+    
                 <div class="btn_container">
                     <div class="my_btn3_container">
                         <button class="my_btn3">Update</button>
