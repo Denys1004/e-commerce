@@ -35,6 +35,13 @@
     </div>
     <div class="row mt-2">
       <div class="col-md-6 mx-auto">
+        <div class="alert alert-info">
+          <h5>Test card information</h5>
+          <p>Card no: 4242 4242 4242 4242</p>
+          <p>Date: any future date</p>
+          <p>CVC: any three numbers</p>
+          <p>Zipcode: any five numbers</p>
+        </div>
         <form action="{% url 'charge'%}" method="post" id="payment-form" class="form-group">
           {%csrf_token%}
         
