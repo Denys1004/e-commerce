@@ -64,8 +64,13 @@ p{
 }
 
 
-
-
+.form-group{
+    margin-bottom: 0;
+}
+label {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
 @import'./navigation';
 @import'./store';
 @import'./item';
@@ -255,7 +260,14 @@ footer{
     margin: 0;
 }
 
+.display_inline{
+    display: inline-block;
+    margin-right: 20px;
+}
 
+.display_inline2{
+    display: inline-block;
+}
 
 
 

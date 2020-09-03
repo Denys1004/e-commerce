@@ -95,9 +95,6 @@ def create_new_product(request):
         }
         return render(request, 'create_product.html', context)
     else:
-        print('*'*30)
-        print(request.POST.getlist('categories'))
-        print('*'*30)
         new_product = Product.objects.create_product(request.POST, request.FILES)
         return redirect('/store')
 
@@ -152,7 +149,8 @@ def add_to_cart(request, id):
 def edit(request, product_id):
     if request.method == "GET":
         context = {
-            'needed_product': Product.objects.get(id = product_id)
+            'needed_product': Product.objects.get(id = product_id),
+            'catergories':Category.objects.all()
         }
         return render(request, 'edit_product.html', context)
     else:

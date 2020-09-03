@@ -44,6 +44,21 @@ class ProductManager(models.Manager):
         for picture in fileData.getlist('product_image'):
             Image.objects.create(name=picture.name, image=picture, product=updated_product)
 
+        if 'categories' in postData:
+            for category_id in postData.getlist('categories'):
+                updated_product.categories.add(Category.objects.get(id=category_id)) 
+        elif len(postData['new_category'])>0:
+            category_list=postData['new_category'].split(', ')
+            print(category_list)
+            for category in category_list:
+                currentCategories=Category.objects.filter(name=category)
+                if len(currentCategories)>0:
+                    category = Category.objects.get(id=currentCategories[0])
+                    updated_product.categories.add(category)  
+                else:  
+                    category=Category.objects.create(name=category)
+                    updated_product.categories.add(category)
+        updated_product.save()
         return updated_product
         
 

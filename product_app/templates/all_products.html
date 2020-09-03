@@ -31,7 +31,7 @@
                 <div class="table_headrer table_headrer_2"><p>{{ product.name }}</p></div>
                 <div class="table_headrer table_headrer_2">
                     {% for category in product.categories.all %}
-                    <small>{{category.name}}</small>
+                    <small>{{category.name}} <span class="red">|</span></small>
                     {% endfor %}
 
                 </div>

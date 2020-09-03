@@ -27,12 +27,6 @@
                 </div>
                 <div class="form-row">
                     <div class="col-3">
-                        <!-- <select class='custom-select' name="catergory">
-                            <option value='NA' selected>Choose a category...</option>
-                            {% for catergory in catergories %}
-                                <option value="{{catergory.id}}">{{catergory.name}}</option>
-                            {% endfor %}
-                        </select> -->
                         <p>Choose an existing category</p>
                         {% for category in catergories %}
                             <input type="checkbox" id="{{category.id}}" name="categories" value="{{category.id}}">
