@@ -20,12 +20,15 @@
                     <input type="text" class="form-control" name="product_price" aria-describedby="name">
                 </div>
                 <div class="form-group">
+                    <label for="editor1">Description:</label>
                     <textarea name="editor1" class="form-control post_content"></textarea>
                 </div>
+                <br>
                 <div class="form-group">
                     <input type="file" name="product_image"  multiple>
                 </div>
-                <div class="form-row">
+                <br>
+                <!-- <div class="form-row">
                     <div class="col-3">
                         <p>Choose an existing category</p>
                         {% for category in catergories %}
@@ -36,6 +39,21 @@
                     <div class="col">
                         <input type="text" class="form-control" name="new_category" placeholder="or Create a new Category">
                     </div>
+                </div> -->
+
+                <p>Choose an existing category:</p>
+                <div class="form-group">
+                    {% for category in catergories %}
+                        <div class="display_inline">
+                            <input type="checkbox" id="{{category.id}}" name="categories" value="{{category.id}}">
+                            <label for="{{category.id}}"> {{category.name}}</label>  
+                        </div>
+                    {% endfor %}
+                </div>
+
+        
+                <div class="form-group">
+                    <input type="text" class="form-control" name="new_category" placeholder="or Create a new Category">
                 </div>
 
                 <div class="btncreate_container">

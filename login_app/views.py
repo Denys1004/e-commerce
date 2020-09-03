@@ -4,7 +4,7 @@ from django.contrib import messages
 
 
 def login_redirect(request):
-    return redirect('/login/login')
+    return redirect(f'/login/login/{log}')
 
 # REGISTRATION
 def register(request):
@@ -28,12 +28,17 @@ def register(request):
         return redirect('/store')
 
 # LOGIN
-def login(request):
+def login(request, mess):
     if request.method == "GET":
         if 'first_name' in request.session:
             request.session.clear()
             return render(request, "login_app/login.html")
         else:
+            if mess == 'mess':
+                print('*' * 30)
+                print(mess)
+                print('*' * 30)
+                messages.success(request, "In order to buy products you need to login")
             return render(request, "login_app/login.html")
     else:
         result = User.objects.authenticate(request.POST['email'],request.POST['password']) # Checking login

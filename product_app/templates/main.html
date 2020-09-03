@@ -52,7 +52,7 @@
                             {% if request.session.user_id %}
                             <a href="/login/logout/"><ion-icon name="person"></ion-icon><small>Sign out</small></a> 
                             {% else %}
-                            <a href="/login/login/"><ion-icon name="person"></ion-icon><small>Sign in</small></a> 
+                            <a href="{% url 'login' 'log'%}"><ion-icon name="person"></ion-icon><small>Sign in</small></a> 
                             {% endif %}
                         </div>
                         {% if request.session.user_id != null %}
