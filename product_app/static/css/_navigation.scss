@@ -193,10 +193,10 @@ body{
     background-color: $blue_bg ;
     ul{
         display: flex;
-        max-width: 800px;
+        max-width: 1000px;
         margin: auto;
         height: 30px;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         padding: 5px 20px 0;
         li{

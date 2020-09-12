@@ -1,14 +1,13 @@
 {% load static %}
-<div class="logo_container">
-    <a href="/store"><img src="{% static 'images/logo_red.png' %}" alt="logo"></a>
-</div>
+
 
 <ul class="nav-links">
     <div class="nav_logo_container">
-        <a href="/store"><img class="logo_img" src="{% static 'images/logo_red.png' %}" alt="logo"></a>
+        <a href="/welcome"><img class="logo_img" src="{% static 'images/logo_red.png' %}" alt="logo"></a>
     </div>
-
-    <li><a href="/store">Home</a></li>
+    <li><a href='/store'>Store</a></li>
+    <li><a href='/welcome'>Home</a></li>
+    <!-- <li><a href="#">About Us</a></li> -->
     {% if page == 'store' %}
         <li>Categories
             <ul id='categories'> 

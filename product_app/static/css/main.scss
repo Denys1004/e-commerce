@@ -77,6 +77,39 @@ label {
 
 
 
+// Welcome page
+.welcome_page_container{
+    width: 100%;
+    min-height: 90vh;
+    background-color: yellow;
+    background: url(../images/bg_fire9.jpg) no-repeat center center/cover;
+    display: flex;
+    padding-bottom: 200px;
+    justify-content: center;
+    align-items: center;
+    .fire_logo_container{
+        max-width: 80%;
+        height: auto;
+        margin: auto;
+        .fire_description{
+            text-align: right;
+            color: rgb(255, 255, 255);
+            margin-bottom: 20px;
+        }
+        a{
+            img{
+                width: 100%;
+                max-width: 700px;
+                height: auto;
+            }
+        }
+    }
+}
+
+
+
+
+
 #left_img{
     position: absolute;
     left: -50px;
@@ -123,7 +156,7 @@ footer{
     margin-right: 20px;
 }
 #rashid{
-    margin: 0 0 0 40px;
+    margin: 0 40px 0 40px;
 }
 
 

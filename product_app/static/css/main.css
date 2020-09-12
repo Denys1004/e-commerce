@@ -334,12 +334,11 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
   height: 30px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1039,6 +1038,41 @@ body {
   color: #ffa200;
 }
 
+.welcome_page_container {
+  width: 100%;
+  min-height: 90vh;
+  background-color: yellow;
+  background: url(../images/bg_fire9.jpg) no-repeat center center/cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-bottom: 200px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.welcome_page_container .fire_logo_container {
+  max-width: 80%;
+  height: auto;
+  margin: auto;
+}
+
+.welcome_page_container .fire_logo_container .fire_description {
+  text-align: right;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.welcome_page_container .fire_logo_container a img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+}
+
 #left_img {
   position: absolute;
   left: -50px;
@@ -1099,7 +1133,7 @@ footer .footer_container p {
 }
 
 #rashid {
-  margin: 0 0 0 40px;
+  margin: 0 40px 0 40px;
 }
 
 .create_product_page_container {

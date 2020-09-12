@@ -30,7 +30,19 @@ def store(request):
     
     return render(request, 'store.html', context)
 
-
+def welcome(request):
+    if 'user_id' in request.session:		
+        cur_user = User.objects.get(id = request.session['user_id'])
+        cart_items = cur_user.cart.cart_items.all()
+        context = {
+            'num_items_in_cart':cur_user.cart.total_quantity,
+            'cur_user':cur_user,
+            'page': 'welcome'
+        }
+        
+        return render(request, 'welcome.html', context)
+    else:
+        return render(request, 'welcome.html')
 
 
 def cart(request):

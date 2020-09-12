@@ -31,9 +31,6 @@
 </head>
 <body>
     <div class="page_container">
-
-        <img src="{% static 'images/him.png' %}" alt="" id="left_img">
-        <img src="{% static 'images/her.png' %}" alt="" id="right_img">
         <!-- Navigation -->
         <div class="navigation_container">
             <nav>
@@ -71,7 +68,6 @@
                 <ul> 
                     <li><a href='/store'>Store</a></li>
                     <li><a href='/welcome'>Home</a></li>
-                    <!-- <li><a href="#">About Us</a></li> -->
                     {% if request.session.user_id != null %}
                     <li><a href="{% url 'create_new_product' %}">Create Product</a></li>
                     <li><a href="{% url 'all_products' %}">All Products</a></li>
@@ -82,68 +78,16 @@
             </div>
         </div>
 
-        <div class="main_container">
-            {% block content %}
+        <div class="welcome_page_container">
 
-            {% endblock content %}
+            <div class="fire_logo_container">
+                <div class="fire_description">
+                    <h1>SPORTS WEAR</h1>
+                </div>
+                <a href="/store"><img class="logo_img" src="{% static 'images/logo_white.png' %}" alt="logo"></a>
+            </div>
         </div>
 
-
-
-
-        <footer>
-            <div class="footer_container">
-                <div id="denys">
-                    <div class="pers_logo_container">
-                        <img src="" alt="">
-                    </div>
-                    <div class="name_text_container">
-                        <h1>DENYS</h1>
-                    </div>
-                    <div class="info_text_container">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores fugit nesciunt odit hic dolorum! Mollitia quaerat velit sed iste. Laborum deserunt est ex fuga saepe explicabo perspiciatis quisquam quo dolorum.</p>
-                    </div>
-                    <div class="social_media">
-                        <a href=""><img src="{% static 'images/linkedin.svg' %}" alt=""></a>
-                        <a href=""><img src="{% static 'images/facebook.svg' %}" alt=""></a>
-                        <a href=""><img src="{% static 'images/github.svg' %}" alt=""></a>
-                    </div>
-                </div>
-                <div id="rashid">
-                    <div class="pers_logo_container">
-                        <img src="" alt="">
-                    </div>
-                    <div class="name_text_container">
-                        <h1>RASHID</h1>
-                    </div>
-                    <div class="info_text_container">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores fugit nesciunt odit hic dolorum! Mollitia quaerat velit sed iste. Laborum deserunt est ex fuga saepe explicabo perspiciatis quisquam quo dolorum.</p>
-                    </div>
-                    <div class="social_media">
-                        <a href=""><img src="{% static 'images/linkedin.svg' %}" alt=""></a>
-                        <a href=""><img src="{% static 'images/facebook.svg' %}" alt=""></a>
-                        <a href=""><img src="{% static 'images/github.svg' %}" alt=""></a>
-                    </div>
-                </div>
-                <div id="drew">
-                    <div class="pers_logo_container">
-                        <img src="" alt="">
-                    </div>
-                    <div class="name_text_container">
-                        <h1>DREW</h1>
-                    </div>
-                    <div class="info_text_container">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores fugit nesciunt odit hic dolorum! Mollitia quaerat velit sed iste. Laborum deserunt est ex fuga saepe explicabo perspiciatis quisquam quo dolorum.</p>
-                    </div>
-                    <div class="social_media">
-                        <a href=""><img src="{% static 'images/linkedin.svg' %}" alt=""></a>
-                        <a href=""><img src="{% static 'images/facebook.svg' %}" alt=""></a>
-                        <a href=""><img src="{% static 'images/github.svg' %}" alt=""></a>
-                    </div>
-                </div>
-
-            </div>
-        </footer>
         <script>
             var csrftoken = '{{ csrf_token }}';
         </script>
