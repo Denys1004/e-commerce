@@ -75,6 +75,9 @@ label {
 @import'./store';
 @import'./item';
 
+.dark_grey{
+    color: $grey_color;
+}
 
 
 // Welcome page
@@ -360,7 +363,7 @@ footer{
     font-size: 20px;
 }
 .profile_logo {  
-    background-color: #1d1d1d;  
+    background-color: $dark;  
     width: 118px;
     height: 118px;
     padding: 0 0 0 0;
@@ -401,6 +404,10 @@ footer{
     line-height: 1.5;
     border: none;
     outline: none;
+    &:hover{
+        color: $white_color;
+        background-color: $dark;
+    }
 }
 
 .btn_grey{
@@ -415,6 +422,10 @@ footer{
     line-height: 1.5;
     border: none;
     outline: none;
+    &:hover{
+        color: $white_color;
+        background-color: $red;
+    }
 }
 
 .gold{

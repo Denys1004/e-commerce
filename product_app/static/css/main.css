@@ -1082,6 +1082,10 @@ body {
   color: #ffa200;
 }
 
+.dark_grey {
+  color: #767676;
+}
+
 .welcome_page_container {
   width: 100%;
   min-height: 90vh;
@@ -1572,7 +1576,7 @@ footer .footer_container p {
 }
 
 .profile_logo {
-  background-color: #1d1d1d;
+  background-color: #343a40;
   width: 118px;
   height: 118px;
   padding: 0 0 0 0;
@@ -1621,6 +1625,11 @@ footer .footer_container p {
   outline: none;
 }
 
+.btn_red:hover {
+  color: #fff;
+  background-color: #343a40;
+}
+
 .btn_grey {
   display: inline-block;
   font-weight: 400;
@@ -1633,6 +1642,11 @@ footer .footer_container p {
   line-height: 1.5;
   border: none;
   outline: none;
+}
+
+.btn_grey:hover {
+  color: #fff;
+  background-color: #930303;
 }
 
 .gold {
