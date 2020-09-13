@@ -1086,6 +1086,10 @@ body {
   color: #767676;
 }
 
+.dark {
+  color: #343a40;
+}
+
 .welcome_page_container {
   width: 100%;
   min-height: 90vh;
