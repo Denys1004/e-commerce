@@ -1125,6 +1125,12 @@ body {
   height: auto;
 }
 
+#card-errors {
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #930303;
+}
+
 #left_img {
   position: absolute;
   left: -50px;
@@ -1608,9 +1614,9 @@ footer .footer_container p {
 }
 
 .alert-info {
-  background-color: #343a40;
-  color: white;
-  border: none;
+  background-color: white;
+  border: 2px solid #930303;
+  color: #606060;
   outline: none;
   border-radius: 0;
 }
@@ -1654,7 +1660,7 @@ footer .footer_container p {
 }
 
 .gold {
-  color: #e3dc28;
+  color: #930303;
 }
 
 @media screen and (max-width: 400px) {

@@ -8,8 +8,8 @@
     </div>
     <div id="display_products">
         <div class="total_cart_info d-flex justify-content-between">
-            <h3>Total Items: {{cur_user.cart.total_quantity}}</h3>
-            <h3>Total Price: ${{cur_user.cart.total_cost|floatformat:2 }}</h3>
+            <h3><span class="dark_grey">Total Items:</span> {{cur_user.cart.total_quantity}}</h3>
+            <h3><span class="dark_grey">Total Price:</span> ${{cur_user.cart.total_cost|floatformat:2 }}</h3>
         </div>
         <div class="cart_products_container">
 
