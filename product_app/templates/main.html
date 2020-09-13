@@ -69,14 +69,14 @@
             </nav>
             <div id="nav_botton">
                 <ul> 
-                    <li><a href='/store'>Store</a></li>
-                    <li><a href='/welcome'>Home</a></li>
-                    <!-- <li><a href="#">About Us</a></li> -->
+                    <li id="menu_s"><a href='/store'>Store</a></li>
+                    <li id="menu_h"><a href='/welcome'>Home</a></li>
                     {% if request.session.user_id != null %}
-                    <li><a href="{% url 'create_new_product' %}">Create Product</a></li>
-                    <li><a href="{% url 'all_products' %}">All Products</a></li>
-                    <li><a href="{% url 'profile' %}">My Profile</a></li>
-                    <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
+                    <li id="menu_cp"><a href="{% url 'create_new_product' %}">Create Product</a></li>
+                    <li id="menu_ap"><a href="{% url 'all_products' %}">All Products</a></li>
+                    <li id="menu_cat"><a href="{% url 'all_categories' %}">Categories</a></li>
+                    <li id="menu_mp"><a href="{% url 'profile' %}">Profile</a></li>
+                    <li id="menu_c"><a href="{% url 'cart' %}">Cart</a></li>
                     {% endif %}
                 </ul>
             </div>

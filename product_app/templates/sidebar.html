@@ -27,8 +27,11 @@
         </li>
     {% endif %}
     {% if request.session.user_id %}
-    <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
-    <li><a href="{% url 'profile' %}">My Profile</a></li>
+    <li><a href="{% url 'create_new_product' %}">Create Product</a></li>
+    <li><a href="{% url 'all_products' %}">All Products</a></li>
+    <li><a href="{% url 'all_categories' %}">Categories</a></li>
+    <li><a href="{% url 'cart' %}">Cart</a></li>
+    <li><a href="{% url 'profile' %}">Profile</a></li>
     <li><a href="/login/logout/">Sign Out</a></li>
     {% else %}
     <li><a href="{% url 'login' 'log'%}">Sign in</a></li>

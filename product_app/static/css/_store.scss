@@ -1,7 +1,5 @@
 .product_page_container{
     min-height: 88vh;
-    // background: radial-gradient(#df4948, $red);
-    // background-color: #d2d2d2;
     background: radial-gradient(#ffffff, #ababab);
     max-width: 1100px;
     margin: 0 auto;
@@ -31,10 +29,9 @@
             font-weight: bold;
         }
     }
-
-#page_num{
-    font-size: 20px;
-}
+    #page_num{
+        font-size: 20px;
+    }
 }
 
 
@@ -260,4 +257,46 @@
     height: 4px;
     margin: 1px;
     background-color: #fff;
+}
+
+@media screen and (max-width: 400px){
+    .product_page_container{
+        width: 100%;
+    }
+
+    .logo_description_container{
+        flex-direction: column;
+        height: 100%;
+    }
+
+
+
+    .store_search_container{
+        min-width: auto;
+        form{
+            .search_bar{
+                width: 86%;
+            }
+        }
+        .product{
+            width: 280px;
+            height: 280px;
+
+            img{
+                width: 280px;
+                height: 280px;
+            }
+        }
+    
+    }
+    .product_description{
+        display: block;
+    }
+
+
+
+    #carouselExampleIndicators{
+        display: none;
+    }
+
 }

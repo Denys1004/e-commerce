@@ -22,7 +22,7 @@
     <div class="order_summary">
       <div class="checkout_title">
         <h3>Order:</h3>
-        <a href="{% url 'checkout' %}">
+        <a class="btn_grey" href="{% url 'checkout' %}">
           <ion-icon name="arrow-undo-circle-outline"></ion-icon>Back To Checkout
         </a>
       </div>
@@ -36,18 +36,18 @@
     <div class="row mt-2">
       <div class="col-md-6 mx-auto">
         <div class="alert alert-info">
-          <h5>Test card information</h5>
-          <p>Card no: 4242 4242 4242 4242</p>
-          <p>Date: any future date</p>
-          <p>CVC: any three numbers</p>
-          <p>Zipcode: any five numbers</p>
+          <h5 class="gold">Test card information</h5>
+          <p><span class="gold">Card #:</span>  4242 4242 4242 4242</p>
+          <p><span class="gold">Date:</span> any future date</p>
+          <p><span class="gold">CVC:</span> any three numbers</p>
+          <p><span class="gold">Zipcode:</span> any five numbers</p>
         </div>
         <form action="{% url 'charge'%}" method="post" id="payment-form" class="form-group">
           {%csrf_token%}
         
           <input type="text" name="name" placeholder="Full name" class="form-control mb-2">
           <input type="email" name="email" placeholder="Email address" class="form-control mb-2">
-          <div class="form-row">
+          <div class="form-row mb-4">
             <label for="card-element">
             </label>
             <div id="card-element">
@@ -58,7 +58,7 @@
             <div id="card-errors" role="alert"></div>
           </div>
     
-          <button class="btn btn-dark btn-sm mt-3">Submit Payment</button>
+          <button class="btn_grey">Submit Payment</button>
         </form>
       </div>
     </div>

@@ -193,7 +193,7 @@ body{
     background-color: $blue_bg ;
     ul{
         display: flex;
-        max-width: 1000px;
+        max-width: 1200px;
         margin: auto;
         height: 30px;
         justify-content: space-around;
@@ -216,6 +216,7 @@ body{
 
 @media screen and (max-width: 400px) {
     nav{
+        padding: 0 20px 0 20px;
         .header{
             .left{
                 .burger{
@@ -229,7 +230,7 @@ body{
                     }
                 }
             }
-            .search_container{
+            .logo_container{
                 display: none;
             }
             .right{
@@ -239,7 +240,7 @@ body{
                         ion-icon {
                             vertical-align: center;
                             font-size: 12px;
-                            padding: 0 3px 5px 0;
+                            padding: 0 3px 7px 0;
                             color: $orange_color;
                         }
                         small{
@@ -254,7 +255,7 @@ body{
                         ion-icon {
                             vertical-align: center;
                             font-size: 14px;
-                            padding: 0 3px 4px 0;
+                            padding: 0 3px 6px 0;
                             color: $orange_color;
                         }
                         small{
@@ -290,5 +291,13 @@ body{
             }
         }
     }
+    .toggle .line3{
+        transform: rotate(-45deg) translate(5px, -6px);
+    }
+    #menu_c,
+    #menu_mp{
+        display: none;
+    }
+
 
 }

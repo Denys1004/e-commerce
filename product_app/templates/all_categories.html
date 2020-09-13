@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="any_page_container">
+        <div class="item_container_header">
+            <h1>All Categories</h1>
+        </div>
+        <div class="all_products_container">
+
+            <div class="table_row_header">
+                <div class="table_headrer table_headrer_2"><p>Name</p></div>
+                <div class="table_headrer table_headrer_4"><p>Action</p></div>
+            </div>
+
+
+            {% for category in all_categories %}
+            <div class="table_row_body">
+
+                <div class="table_headrer table_headrer_2"><p>{{ category.name }}</p></div>
+                <div class="table_headrer table_headrer_4">
+                    <div class="table_headrer table_headrer_4">
+                        <div class="action">                                
+                            <a href="{% url 'delete_category' category.id %}"><small>Delete</small></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr id="cat_separator">
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

@@ -10,7 +10,7 @@ stripe.api_key = key.stripe_api
 
 # Create your views here.
 def index(request):
-    return redirect('/store')
+    return redirect('/welcome')
 
 def store(request):
     products = Product.objects.all().order_by('-created_at')								
@@ -423,3 +423,20 @@ def remove_category(request, category_id, product_id):
     }
 
     return render(request, 'product_category_partial.html', context)
+
+
+def all_categories(request):
+    cur_user = User.objects.get(id = request.session['user_id'])
+    context = {
+        'all_products':Product.objects.all(),
+        'all_categories':Category.objects.all(),
+        'num_items_in_cart':cur_user.cart.total_quantity,
+        'page': 'all_categories'
+    }
+    return render(request, 'all_categories.html', context)
+
+
+def delete_category(request, category_id):
+    category=Category.objects.get(id=category_id)
+    category.delete()
+    return redirect('/all_categories')
