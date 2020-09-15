@@ -95,7 +95,7 @@ label {
     align-items: center;
     .fire_logo_container{
         max-width: 80%;
-        height: auto;
+        height: auto;   
         margin: auto;
         .fire_description{
             text-align: right;
@@ -111,7 +111,9 @@ label {
         }
     }
 }
-
+#footer_background{
+    background-color: $blue_bg;
+}
 
 #card-errors{
     margin-top: 10px;
@@ -149,7 +151,7 @@ footer{
         #denys,
         #rashid,
         #drew{
-            flex: 1;
+            flex:1;
         }
         h1{
             color: $red

@@ -1124,6 +1124,10 @@ body {
   height: auto;
 }
 
+#footer_background {
+  background-color: #1d1d1d;
+}
+
 #card-errors {
   margin-top: 10px;
   margin-left: 10px;

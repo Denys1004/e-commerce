@@ -113,7 +113,7 @@ $('body').on('click', '.add_to_cart', (function(e) {
     e.preventDefault()
     var product_id=$(this).attr('product_id')
     $(this).html('Added')
-    $(this).css('color', '#28a745')
+    $(this).css('color', '#fff')
     $.ajax({
         url:`/add_to_cart/${product_id}`,
         method:'GET',
