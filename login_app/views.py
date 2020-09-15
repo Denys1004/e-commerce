@@ -25,7 +25,7 @@ def register(request):
         request.session['user_id'] = new_user.id
         request.session['cart_id'] = new_user.cart.id
 
-        return redirect('/store')
+        return redirect('/welcome')
 
 # LOGIN
 def login(request, mess):
@@ -49,8 +49,8 @@ def login(request, mess):
             user = User.objects.get(email = request.POST['email'])
             request.session['user_id'] = user.id
             request.session['cart_id'] = user.cart.id
-            return redirect('/store')
+            return redirect('/welcome')
         
 def logout(request):
     request.session.clear()
-    return redirect('/store')
+    return redirect('/welcome')

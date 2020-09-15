@@ -1164,6 +1164,14 @@ footer .footer_container {
   color: #aaaaaa;
 }
 
+footer .footer_container #denys,
+footer .footer_container #rashid,
+footer .footer_container #drew {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
 footer .footer_container h1 {
   color: #930303;
 }

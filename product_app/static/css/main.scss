@@ -146,6 +146,11 @@ footer{
         align-items: top;
         justify-content: space-between;
         color: $light_grey;
+        #denys,
+        #rashid,
+        #drew{
+            flex: 1;
+        }
         h1{
             color: $red
         }
