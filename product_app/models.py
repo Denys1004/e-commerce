@@ -8,9 +8,6 @@ import uuid
 class ProductManager(models.Manager):
 
     def create_product(self, postData, fileData):
-        print('*'*30)
-        print(postData)
-        print('*'*30)
         
         new_product = self.create(name=postData['product_name'], price=postData['product_price'], description=postData['editor1'], stars = 0, count=0, average=0) 
         for picture in fileData.getlist('product_image'):
